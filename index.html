@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Patriotas</title>
+<style>
+  html, body { margin: 0; padding: 0; background: #F3F9FB; }
+  #patriotas-app, #patriotas-app * { box-sizing: border-box; }
+  #patriotas-app {
+    --ink: #12161A;
+    --bg: #F3F9FB;
+    --celeste: #159FD6;
+    --card: #E7F4F9;
+    --pos: #3E8E5B;
+    --neg: #C6473D;
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    min-height: 100vh;
+    padding-bottom: 92px;
+    position: relative;
+  }
+  #patriotas-app button { font-family: inherit; border: none; background: none; cursor: pointer; color: inherit; }
+  #patriotas-app input { font-family: inherit; color: inherit; }
+  #patriotas-app .mono { font-family: 'JetBrains Mono', monospace; }
+  #patriotas-app .display { font-family: 'Fraunces', serif; }
+
+  #patriotas-app .flex { display: flex; }
+  #patriotas-app .items-center { align-items: center; }
+  #patriotas-app .items-baseline { align-items: baseline; }
+  #patriotas-app .items-start { align-items: flex-start; }
+  #patriotas-app .justify-between { justify-content: space-between; }
+  #patriotas-app .justify-center { justify-content: center; }
+  #patriotas-app .flex-1 { flex: 1 1 0%; }
+  #patriotas-app .flex-wrap { flex-wrap: wrap; }
+  #patriotas-app .flex-col { flex-direction: column; }
+  #patriotas-app .shrink-0 { flex-shrink: 0; }
+  #patriotas-app .gap-1 { gap: 4px; }
+  #patriotas-app .gap-15 { gap: 6px; }
+  #patriotas-app .gap-2 { gap: 8px; }
+  #patriotas-app .gap-25 { gap: 10px; }
+  #patriotas-app .gap-3 { gap: 12px; }
+  #patriotas-app .w-full { width: 100%; }
+  #patriotas-app .text-xs { font-size: 12px; }
+  #patriotas-app .text-sm { font-size: 14px; }
+  #patriotas-app .text-base { font-size: 16px; }
+  #patriotas-app .text-xl { font-size: 20px; }
+  #patriotas-app .text-2xl { font-size: 24px; }
+  #patriotas-app .text-3xl { font-size: 30px; }
+  #patriotas-app .font-medium { font-weight: 500; }
+  #patriotas-app .font-semibold { font-weight: 600; }
+  #patriotas-app .font-bold { font-weight: 700; }
+  #patriotas-app .rounded-lg { border-radius: 10px; }
+  #patriotas-app .rounded-xl { border-radius: 14px; }
+  #patriotas-app .rounded-full { border-radius: 999px; }
+  #patriotas-app .opacity-40 { opacity: .4; }
+  #patriotas-app .opacity-45 { opacity: .45; }
+  #patriotas-app .opacity-50 { opacity: .5; }
+  #patriotas-app .opacity-55 { opacity: .55; }
+  #patriotas-app .opacity-60 { opacity: .6; }
+  #patriotas-app .opacity-70 { opacity: .7; }
+  #patriotas-app .px-2 { padding-left: 8px; padding-right: 8px; }
+  #patriotas-app .px-25 { padding-left: 10px; padding-right: 10px; }
+  #patriotas-app .px-3 { padding-left: 12px; padding-right: 12px; }
+  #patriotas-app .px-4 { padding-left: 16px; padding-right: 16px; }
+  #patriotas-app .px-5 { padding-left: 20px; padding-right: 20px; }
+  #patriotas-app .py-1 { padding-top: 4px; padding-bottom: 4px; }
+  #patriotas-app .py-15 { padding-top: 6px; padding-bottom: 6px; }
+  #patriotas-app .py-2 { padding-top: 8px; padding-bottom: 8px; }
+  #patriotas-app .py-25 { padding-top: 10px; padding-bottom: 10px; }
+  #patriotas-app .py-3 { padding-top: 12px; padding-bottom: 12px; }
+  #patriotas-app .p-3 { padding: 12px; }
+  #patriotas-app .p-4 { padding: 16px; }
+  #patriotas-app .p-6 { padding: 24px; }
+  #patriotas-app .mb-1 { margin-bottom: 4px; }
+  #patriotas-app .mb-15 { margin-bottom: 6px; }
+  #patriotas-app .mb-2 { margin-bottom: 8px; }
+  #patriotas-app .mb-3 { margin-bottom: 12px; }
+  #patriotas-app .mb-4 { margin-bottom: 16px; }
+  #patriotas-app .mb-5 { margin-bottom: 20px; }
+  #patriotas-app .mb-6 { margin-bottom: 24px; }
+  #patriotas-app .mt-1 { margin-top: 4px; }
+  #patriotas-app .mt-2 { margin-top: 8px; }
+  #patriotas-app .ml-1 { margin-left: 4px; }
+  #patriotas-app .ml-15 { margin-left: 6px; }
+  #patriotas-app .ml-auto { margin-left: auto; }
+  #patriotas-app .pt-2 { padding-top: 8px; }
+  #patriotas-app .pt-3 { padding-top: 12px; }
+  #patriotas-app .pt-4 { padding-top: 16px; }
+  #patriotas-app .pt-5 { padding-top: 20px; }
+  #patriotas-app .pt-8 { padding-top: 32px; }
+  #patriotas-app .pb-3 { padding-bottom: 12px; }
+  #patriotas-app .pb-4 { padding-bottom: 16px; }
+  #patriotas-app .pl-11 { padding-left: 44px; }
+  #patriotas-app .border { border: 1px solid rgba(0,0,0,.15); }
+  #patriotas-app .border-dashed { border-bottom: 1px dashed rgba(0,0,0,.2); }
+  #patriotas-app .capitalize { text-transform: capitalize; }
+  #patriotas-app .underline { text-decoration: underline; }
+  #patriotas-app .cursor-pointer { cursor: pointer; }
+  #patriotas-app .text-right { text-align: right; }
+  #patriotas-app .text-center { text-align: center; }
+  #patriotas-app .text-left { text-align: left; }
+  #patriotas-app .relative { position: relative; }
+  #patriotas-app .sticky { position: sticky; top: 0; z-index: 10; }
+  #patriotas-app .tracking-tight { letter-spacing: -0.02em; }
+  #patriotas-app .space-y-15 > * + * { margin-top: 6px; }
+  #patriotas-app .space-y-2 > * + * { margin-top: 8px; }
+  #patriotas-app .space-y-25 > * + * { margin-top: 10px; }
+  #patriotas-app .space-y-3 > * + * { margin-top: 12px; }
+  #patriotas-app .chip {
+    padding: 6px 10px; border-radius: 999px; font-size: 12px; font-weight: 500;
+    border: 1px solid rgba(0,0,0,.2); background: transparent; color: var(--ink);
+  }
+  #patriotas-app .chip.on { color: #fff; }
+  #patriotas-app .btn-primary {
+    background: var(--celeste); color: #fff; font-weight: 600; border-radius: 14px;
+  }
+  #patriotas-app .field {
+    width: 100%; padding: 10px 12px; border-radius: 10px; border: 1px solid rgba(0,0,0,.2);
+    background: #fff; font-size: 14px;
+  }
+  #patriotas-app svg { display: block; }
+</style>
+</head>
+<body>
+
+<div id="patriotas-app"></div>
+
+<script>
+(function () {
+  const root = document.getElementById('patriotas-app');
+
+  /* ---------- fonts ---------- */
+  (function loadFonts() {
+    const href = "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap";
+    if (!document.querySelector('link[href="' + href + '"]')) {
+      const l = document.createElement('link');
+      l.rel = 'stylesheet';
+      l.href = href;
+      document.head.appendChild(l);
+    }
+  })();
+
+  /* ---------- icons (minimal inline svg) ---------- */
+  function icon(name, size, extra) {
+    size = size || 16;
+    extra = extra || '';
+    const common = 'width="' + size + '" height="' + size + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ' + extra;
+    const paths = {
+      megaphone: '<path d="M3 11v2a1 1 0 0 0 1 1h2l3.5 5.5a1 1 0 0 0 1.5-1.3L9.5 14H15a9 9 0 0 0 4-1v-8a9 9 0 0 0-4-1H9a6 6 0 0 0-6 6z"/><path d="M15 5v14"/>',
+      wallet: '<rect x="2.5" y="6" width="19" height="13" rx="2.5"/><path d="M2.5 10h19"/><circle cx="17" cy="14" r="1.2" fill="currentColor" stroke="none"/>',
+      calendar: '<rect x="3.5" y="5" width="17" height="16" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/><path d="M8.5 14.5l2 2 4-4.2"/>',
+      plus: '<path d="M12 5v14M5 12h14"/>',
+      x: '<path d="M6 6l12 12M18 6L6 18"/>',
+      chevronLeft: '<path d="M15 18l-6-6 6-6"/>',
+      chevronRight: '<path d="M9 18l6-6-6-6"/>',
+      arrowRight: '<path d="M5 12h14M13 6l6 6-6 6"/>',
+      trash: '<path d="M4 7h16M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2m2 0-1 13a1.5 1.5 0 0 1-1.5 1.4h-7A1.5 1.5 0 0 1 6 20L5 7"/>',
+      users: '<circle cx="9" cy="8" r="3.2"/><path d="M2.5 19c.7-3.3 3.2-5 6.5-5s5.8 1.7 6.5 5"/><circle cx="17.2" cy="9" r="2.4"/><path d="M15.8 14.2c2.4.4 4 1.8 4.6 4.5"/>',
+      star: '<path d="M12 3.5l2.6 5.3 5.8.8-4.2 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8-4.2-4.1 5.8-.8z"/>',
+      dollar: '<path d="M12 2v20M17 6.5c-1-1-2.6-1.5-5-1.5-3 0-5 1.3-5 3.5s2 3 5 3.5c3 .5 5 1.3 5 3.5s-2 3.5-5 3.5c-2.4 0-4-.5-5-1.5"/>'
+    };
+    return '<svg ' + common + '>' + (paths[name] || '') + '</svg>';
+  }
+
+  function jerseySvg(numero) {
+    return (
+      '<svg width="64" height="64" viewBox="0 0 80 80" fill="none">' +
+        '<path d="M33,5 L25,7 L30,26 L20,30 L18,74 Q40,79 62,74 L60,30 L50,26 L55,7 L47,5 Q40,13 33,5 Z" ' +
+          'fill="var(--celeste)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round"/>' +
+        '<path d="M34,7 Q40,12 46,7" fill="none" stroke="var(--ink)" stroke-width="2"/>' +
+        (numero ? '<text x="40" y="55" text-anchor="middle" font-family="Fraunces, serif" font-weight="700" font-size="24" fill="var(--ink)">' + esc(numero) + '</text>' : '') +
+      '</svg>'
+    );
+  }
+
+  /* ---------- pure helpers ---------- */
+  function fmt(n) {
+    return new Intl.NumberFormat('es-AR', { style: 'currency', currency: 'ARS', maximumFractionDigits: 0 }).format(Math.round(n || 0));
+  }
+  function monthKey(d) {
+    d = d || new Date();
+    return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0');
+  }
+  function monthLabel(key) {
+    const parts = key.split('-').map(Number);
+    return new Date(parts[0], parts[1] - 1, 1).toLocaleDateString('es-AR', { month: 'long', year: 'numeric' });
+  }
+  function computeBalances(gastos, participantes) {
+    const bal = {};
+    participantes.forEach(function (m) { bal[m] = 0; });
+    gastos.forEach(function (g) {
+      const parts = g.participantes.filter(function (p) { return participantes.indexOf(p) !== -1; });
+      if (!parts.length) return;
+      const share = g.monto / parts.length;
+      parts.forEach(function (p) {
+        if (p !== g.pagador) {
+          bal[p] = (bal[p] || 0) - share;
+          bal[g.pagador] = (bal[g.pagador] || 0) + share;
+        }
+      });
+    });
+    return bal;
+  }
+  function simplifyDebts(balances) {
+    const debtors = Object.entries(balances).filter(function (e) { return e[1] < -1; })
+      .map(function (e) { return { n: e[0], v: -e[1] }; }).sort(function (a, b) { return b.v - a.v; });
+    const creditors = Object.entries(balances).filter(function (e) { return e[1] > 1; })
+      .map(function (e) { return { n: e[0], v: e[1] }; }).sort(function (a, b) { return b.v - a.v; });
+    const txs = [];
+    let i = 0, j = 0;
+    while (i < debtors.length && j < creditors.length) {
+      const amt = Math.min(debtors[i].v, creditors[j].v);
+      txs.push({ from: debtors[i].n, to: creditors[j].n, amt: amt });
+      debtors[i].v -= amt; creditors[j].v -= amt;
+      if (debtors[i].v < 1) i++;
+      if (creditors[j].v < 1) j++;
+    }
+    return txs;
+  }
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+
+  /* ---------- storage ----------
+     Datos compartidos del grupo -> API de Google Sheets (Apps Script).
+     Identidad personal ("quién sos vos") -> localStorage de tu navegador. */
+
+  // 1) PEGÁ ACÁ la URL de tu Apps Script (la que termina en /exec)
+  const API_URL = 'PEGA_ACA_TU_URL_DE_APPS_SCRIPT';
+  // 2) Tiene que ser la MISMA palabra que pusiste en TOKEN dentro de Code.gs
+  const API_TOKEN = 'patriotas-2026';
+
+  async function getShared(key, fallback) {
+    try {
+      const res = await fetch(API_URL + '?action=get&key=' + encodeURIComponent(key) + '&token=' + encodeURIComponent(API_TOKEN));
+      const data = await res.json();
+      return data && data.value ? JSON.parse(data.value) : fallback;
+    } catch (e) { console.error('getShared failed', key, e); return fallback; }
+  }
+  async function setShared(key, value) {
+    try {
+      await fetch(API_URL, {
+        method: 'POST',
+        body: JSON.stringify({ action: 'set', key: key, value: JSON.stringify(value), token: API_TOKEN })
+      });
+    } catch (e) { console.error('setShared failed', key, e); }
+  }
+  function getPersonal(key, fallback) {
+    try {
+      const v = localStorage.getItem('patriotas:' + key);
+      return v ? JSON.parse(v) : fallback;
+    } catch (e) { return fallback; }
+  }
+  function setPersonal(key, value) {
+    try { localStorage.setItem('patriotas:' + key, JSON.stringify(value)); }
+    catch (e) { console.error('setPersonal failed', key, e); }
+  }
+
+  /* ---------- state ---------- */
+  const S = {
+    loading: true,
+    tab: 'avisos',
+    members: [], admin: '', yo: '', numeros: {}, finanzas: [],
+    avisos: [], gastos: [], eventos: [],
+    cuotaTipos: {}, cuotaElecciones: {}, cuotaPagos: {}, gastosClub: [],
+    month: monthKey()
+  };
+  /* transient ui state, not persisted, survives re-render but not saved */
+  const UI = {
+    membersOpen: false,
+    avisoForm: false,
+    gastoEventoId: null,     // which evento is open in Gastos tab
+    showCreateEvento: false,
+    showGastoForm: false,
+    gastoForm: null,         // {pagador, participantes}
+    cuotaEditingTipo: null,  // 'entrenamiento' | 'fullPatriota'
+    cuotaSubTab: 'estado',   // 'estado' | 'gastosClub'
+    showGastoClubForm: false
+  };
+
+  async function loadAll() {
+    const [m, ad, av, ga, ev, ct, ce, cp, y, nu, fi, gc] = await Promise.all([
+      getShared('members', []),
+      getShared('admin', ''),
+      getShared('avisos', []),
+      getShared('gastos', []),
+      getShared('eventos', []),
+      getShared('cuotaTipos', {}),
+      getShared('cuotaElecciones', {}),
+      getShared('cuotaPagos', {}),
+      getPersonal('yo', ''),
+      getShared('numeros', {}),
+      getShared('finanzas', []),
+      getShared('gastosClub', [])
+    ]);
+    S.members = m; S.admin = ad; S.avisos = av; S.gastos = ga; S.eventos = ev;
+    S.cuotaTipos = ct; S.cuotaElecciones = ce; S.cuotaPagos = cp; S.yo = y; S.numeros = nu;
+    S.finanzas = fi; S.gastosClub = gc;
+    S.loading = false;
+    render();
+  }
+
+  /* ---------- mutations ---------- */
+  function puedeFinanzas(name) {
+    return !!name && (name === S.admin || S.finanzas.indexOf(name) !== -1);
+  }
+  async function toggleFinanzas(name) {
+    if (S.yo !== S.admin || name === S.admin) return;
+    const idx = S.finanzas.indexOf(name);
+    S.finanzas = S.finanzas.slice();
+    if (idx !== -1) S.finanzas.splice(idx, 1); else S.finanzas.push(name);
+    await setShared('finanzas', S.finanzas);
+    render();
+  }
+  async function addGastoClub(g) {
+    S.gastosClub = [Object.assign({ id: Date.now(), cargadoPor: S.yo, ts: Date.now() }, g)].concat(S.gastosClub);
+    await setShared('gastosClub', S.gastosClub);
+    render();
+  }
+  async function removeGastoClub(id) {
+    S.gastosClub = S.gastosClub.filter(function (g) { return g.id !== id; });
+    await setShared('gastosClub', S.gastosClub);
+    render();
+  }
+  function computeRecaudadoHistorico() {
+    let total = 0;
+    Object.keys(S.cuotaPagos).forEach(function (mes) {
+      const pagosMes = S.cuotaPagos[mes] || {};
+      const elecciones = S.cuotaElecciones[mes] || {};
+      const tipos = S.cuotaTipos[mes] || { entrenamiento: 0, fullPatriota: 0 };
+      Object.keys(pagosMes).forEach(function (member) {
+        if (pagosMes[member] && elecciones[member]) {
+          total += elecciones[member] === 'fullPatriota' ? tipos.fullPatriota : tipos.entrenamiento;
+        }
+      });
+    });
+    return total;
+  }
+
+  async function addMember(name, numero) {
+    name = (name || '').trim();
+    if (!name || S.members.indexOf(name) !== -1) return;
+    const wasEmpty = S.members.length === 0;
+    S.members = S.members.concat([name]);
+    await setShared('members', S.members);
+    if (numero != null && String(numero).trim() !== '') {
+      S.numeros = Object.assign({}, S.numeros);
+      S.numeros[name] = String(numero).trim();
+      await setShared('numeros', S.numeros);
+    }
+    if (wasEmpty && !S.admin) {
+      S.admin = name;
+      await setShared('admin', name);
+    }
+  }
+  async function removeMember(name) {
+    S.members = S.members.filter(function (m) { return m !== name; });
+    await setShared('members', S.members);
+    if (S.numeros[name] != null) {
+      S.numeros = Object.assign({}, S.numeros);
+      delete S.numeros[name];
+      await setShared('numeros', S.numeros);
+    }
+    if (S.finanzas.indexOf(name) !== -1) {
+      S.finanzas = S.finanzas.filter(function (n) { return n !== name; });
+      await setShared('finanzas', S.finanzas);
+    }
+  }
+  async function chooseYo(name) {
+    S.yo = name;
+    await setPersonal('yo', name);
+    render();
+  }
+  async function cambiarYo() {
+    S.yo = '';
+    await setPersonal('yo', '');
+    render();
+  }
+  async function addAviso(text) {
+    text = (text || '').trim();
+    if (!text) return;
+    S.avisos = [{ id: Date.now(), text: text, autor: S.yo, ts: Date.now() }].concat(S.avisos);
+    await setShared('avisos', S.avisos);
+    render();
+  }
+  async function removeAviso(id) {
+    S.avisos = S.avisos.filter(function (a) { return a.id !== id; });
+    await setShared('avisos', S.avisos);
+    render();
+  }
+  async function addEvento(e) {
+    if (!e.nombre.trim() || !e.participantes.length) return;
+    S.eventos = [Object.assign({ id: Date.now(), ts: Date.now() }, e)].concat(S.eventos);
+    await setShared('eventos', S.eventos);
+    render();
+  }
+  async function removeEvento(id) {
+    S.eventos = S.eventos.filter(function (e) { return e.id !== id; });
+    await setShared('eventos', S.eventos);
+    S.gastos = S.gastos.filter(function (g) { return g.eventoId !== id; });
+    await setShared('gastos', S.gastos);
+    render();
+  }
+  async function addGasto(g) {
+    S.gastos = [Object.assign({ id: Date.now(), ts: Date.now() }, g)].concat(S.gastos);
+    await setShared('gastos', S.gastos);
+    render();
+  }
+  async function removeGasto(id) {
+    S.gastos = S.gastos.filter(function (g) { return g.id !== id; });
+    await setShared('gastos', S.gastos);
+    render();
+  }
+  async function saveCuotaTipo(mes, tipo, valor) {
+    S.cuotaTipos = Object.assign({}, S.cuotaTipos);
+    S.cuotaTipos[mes] = Object.assign({}, S.cuotaTipos[mes] || {});
+    S.cuotaTipos[mes][tipo] = valor;
+    await setShared('cuotaTipos', S.cuotaTipos);
+    render();
+  }
+  async function elegirCuota(mes, miembro, tipo) {
+    S.cuotaElecciones = Object.assign({}, S.cuotaElecciones);
+    S.cuotaElecciones[mes] = Object.assign({}, S.cuotaElecciones[mes] || {});
+    S.cuotaElecciones[mes][miembro] = tipo;
+    await setShared('cuotaElecciones', S.cuotaElecciones);
+    render();
+  }
+  async function togglePago(mes, miembro) {
+    S.cuotaPagos = Object.assign({}, S.cuotaPagos);
+    S.cuotaPagos[mes] = Object.assign({}, S.cuotaPagos[mes] || {});
+    S.cuotaPagos[mes][miembro] = !S.cuotaPagos[mes][miembro];
+    await setShared('cuotaPagos', S.cuotaPagos);
+    render();
+  }
+
+  /* ---------- render ---------- */
+  function render() {
+    if (S.loading) {
+      root.innerHTML = '<div class="flex items-center justify-center text-sm font-medium" style="min-height:100vh">Cargando...</div>';
+      return;
+    }
+    if (!S.yo) {
+      root.innerHTML = renderOnboarding();
+      bindOnboarding();
+      return;
+    }
+    root.innerHTML = renderApp();
+    bindApp();
+  }
+
+  function renderOnboarding() {
+    const jerseys = S.members.map(function (m) {
+      return (
+        '<button data-choose="' + esc(m) + '" class="flex flex-col items-center gap-1" style="width:84px">' +
+          jerseySvg(S.numeros[m]) +
+          '<span class="text-xs font-semibold text-center">' + esc(m) + '</span>' +
+        '</button>'
+      );
+    }).join('');
+
+    const esPrimerUso = S.members.length === 0;
+    const altaForm = esPrimerUso ? (
+      '<p class="text-xs opacity-60 mb-2">Sos el primero en entrar: creá tu usuario y quedás como Admin del grupo.</p>' +
+      '<div class="flex gap-2">' +
+        '<input id="ob-name" class="field" placeholder="Tu nombre" style="flex:2">' +
+        '<input id="ob-numero" class="field mono" placeholder="N°" style="flex:1" inputmode="numeric">' +
+      '</div>' +
+      '<button id="ob-enter" class="btn-primary w-full mt-2" style="padding:10px 16px">Entrar</button>'
+    ) : (
+      '<p class="text-xs opacity-60 mb-2">¿No ves tu camiseta? Pedile al Admin del grupo que te sume desde la app.</p>'
+    );
+
+    return (
+      '<div class="flex items-center justify-center" style="min-height:100vh;padding:0 24px">' +
+        '<div style="max-width:420px;width:100%">' +
+          '<h1 class="display text-3xl font-semibold mb-1">Patriotas</h1>' +
+          '<p class="text-sm opacity-70 mb-6">Elegí tu camiseta. La guardamos en este dispositivo, así no te lo vuelve a preguntar.</p>' +
+          (S.members.length ? '<div class="flex flex-wrap gap-3 mb-6">' + jerseys + '</div>' : '') +
+          altaForm +
+        '</div>' +
+      '</div>'
+    );
+  }
+  function bindOnboarding() {
+    root.querySelectorAll('[data-choose]').forEach(function (btn) {
+      btn.addEventListener('click', function () { chooseYo(btn.getAttribute('data-choose')); });
+    });
+    const enter = document.getElementById('ob-enter');
+    if (enter) enter.addEventListener('click', async function () {
+      const name = document.getElementById('ob-name').value.trim();
+      const numero = document.getElementById('ob-numero').value.trim();
+      if (!name) return;
+      await addMember(name, numero);
+      chooseYo(name);
+    });
+  }
+
+  const TABS = [
+    { id: 'avisos', label: 'Avisos', icon: 'megaphone', accent: 'var(--celeste)' },
+    { id: 'gastos', label: 'Gastos', icon: 'wallet', accent: 'var(--ink)' },
+    { id: 'cuotas', label: 'Cuota', icon: 'calendar', accent: 'var(--celeste)' }
+  ];
+
+  function renderApp() {
+    const dtBadge = S.yo === S.admin ? ' <span class="font-semibold" style="color:var(--celeste)">★ Admin</span>' : '';
+    const tabsHtml = TABS.map(function (t) {
+      const active = t.id === S.tab;
+      return (
+        '<button data-tab="' + t.id + '" class="flex-1 flex items-center justify-center gap-2 py-3 text-sm font-medium" ' +
+          'style="background:' + (active ? '#fff' : 'transparent') + ';color:' + (active ? t.accent : 'var(--ink)') + ';opacity:' + (active ? 1 : .55) + ';border-radius:14px 14px 0 0;border-bottom:3px solid ' + (active ? t.accent : 'transparent') + '">' +
+          icon(t.icon, 16) + t.label +
+        '</button>'
+      );
+    }).join('');
+
+    let content = '';
+    if (S.tab === 'avisos') content = renderAvisos();
+    else if (S.tab === 'gastos') content = renderGastos();
+    else content = renderCuotas();
+
+    return (
+      '<header class="px-5 pt-8 pb-4">' +
+        '<div class="flex items-baseline justify-between">' +
+          '<div class="flex items-center gap-25">' +
+            '<span class="flex items-center justify-center shrink-0 display font-bold text-sm" style="width:36px;height:36px;border-radius:999px;background:var(--ink);color:#fff">P</span>' +
+            '<h1 class="display text-3xl font-semibold tracking-tight">Patriotas</h1>' +
+          '</div>' +
+          '<span class="text-sm opacity-60">hola, ' + esc(S.yo) + dtBadge + ' <button id="btn-cambiar" class="underline opacity-70">(cambiar)</button></span>' +
+        '</div>' +
+        '<p class="text-sm opacity-60 mt-1 pl-11">avisos, gastos compartidos y cuota al día</p>' +
+      '</header>' +
+      '<nav class="flex sticky" style="padding:0 12px;gap:4px;background:var(--bg)">' + tabsHtml + '</nav>' +
+      '<main class="px-4 pt-5" style="background:#fff;min-height:60vh">' + content + '</main>' +
+      renderMembersBar()
+    );
+  }
+
+  function renderMembersBar() {
+    let inner = '';
+    const soyAdmin = S.yo === S.admin;
+    if (UI.membersOpen) {
+      const chips = S.members.map(function (m) {
+        const num = S.numeros[m];
+        const tieneFinanzas = puedeFinanzas(m) && m !== S.admin;
+        return (
+          '<span class="flex items-center gap-1 px-25 py-1 rounded-full text-xs" style="background:rgba(0,0,0,.05)">' +
+            (num ? '<span class="mono font-semibold" style="color:var(--celeste)">#' + esc(num) + '</span>' : '') + ' ' + esc(m) +
+            (m === S.admin ? ' <span style="color:var(--celeste)">★</span>' : '') +
+            (tieneFinanzas ? ' <span title="maneja finanzas">$</span>' : '') +
+            (soyAdmin && m !== S.admin ? '<button data-toggle-finanzas="' + esc(m) + '" class="opacity-60" title="dar/sacar permiso de finanzas" style="margin-left:2px">' + icon('dollar', 11) + '</button>' : '') +
+            (soyAdmin && m !== S.admin ? '<button data-remove-member="' + esc(m) + '" class="opacity-50">' + icon('x', 11) + '</button>' : '') +
+          '</span>'
+        );
+      }).join('');
+      inner = (
+        '<div class="px-4 pb-3 pt-2" style="border-top:1px solid rgba(0,0,0,.08)">' +
+          '<div class="flex flex-wrap gap-2 mb-2">' + chips + '</div>' +
+          (soyAdmin ? (
+            '<div class="flex gap-2">' +
+              '<input id="new-member-name" class="field" placeholder="Agregar amigo/a" style="flex:2;background:#fff">' +
+              '<input id="new-member-numero" class="field mono" placeholder="N°" style="flex:1;background:#fff" inputmode="numeric">' +
+              '<button id="btn-add-member" class="font-semibold text-sm" style="background:var(--ink);color:#fff;border-radius:10px;padding:6px 14px">Sumar</button>' +
+            '</div>'
+          ) : '<p class="text-xs opacity-50">Solo el Admin puede sumar o sacar integrantes.</p>') +
+        '</div>'
+      );
+    }
+    return (
+      '<div style="position:fixed;left:0;right:0;bottom:0;background:var(--bg)">' +
+        inner +
+        '<button id="btn-toggle-members" class="w-full flex items-center justify-center gap-2 py-25 text-xs font-medium opacity-70">' +
+          icon('users', 13) + S.members.length + ' en el grupo' +
+        '</button>' +
+      '</div>'
+    );
+  }
+
+  /* ---------- avisos ---------- */
+  function renderAvisos() {
+    const list = S.avisos.length ? S.avisos.map(function (a) {
+      const mine = a.autor === S.yo;
+      return (
+        '<div class="p-3 rounded-xl relative" style="background:var(--card)">' +
+          '<p class="text-sm" style="padding-right:24px">' + esc(a.text) + '</p>' +
+          '<div class="flex items-center justify-between mt-2">' +
+            '<span class="text-xs font-semibold" style="color:var(--celeste)">' + esc(a.autor) + '</span>' +
+            '<span class="text-xs opacity-50">' + new Date(a.ts).toLocaleDateString('es-AR') + '</span>' +
+          '</div>' +
+          (mine ? '<button data-remove-aviso="' + a.id + '" class="opacity-40" style="position:absolute;top:12px;right:12px">' + icon('x', 14) + '</button>' : '') +
+        '</div>'
+      );
+    }).join('<div style="height:12px"></div>') : '<p class="text-sm opacity-45 text-center" style="padding:32px 0">Todavía no hay avisos. Sé el primero en contar algo.</p>';
+
+    return (
+      '<div class="pb-4">' +
+        '<div class="flex gap-2 mb-5">' +
+          '<input id="aviso-text" class="field" placeholder="Contá algo al grupo..." style="flex:1">' +
+          '<button id="btn-add-aviso" class="btn-primary px-4" style="display:flex;align-items:center;justify-content:center">' + icon('plus', 18) + '</button>' +
+        '</div>' +
+        list +
+      '</div>'
+    );
+  }
+  function bindAvisos() {
+    const input = document.getElementById('aviso-text');
+    document.getElementById('btn-add-aviso').addEventListener('click', function () {
+      addAviso(input.value); input.value = '';
+    });
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') { addAviso(input.value); input.value = ''; }
+    });
+    root.querySelectorAll('[data-remove-aviso]').forEach(function (btn) {
+      btn.addEventListener('click', function () { removeAviso(Number(btn.getAttribute('data-remove-aviso'))); });
+    });
+  }
+
+  /* ---------- gastos (eventos) ---------- */
+  function renderGastos() {
+    if (UI.gastoEventoId) {
+      const evento = S.eventos.find(function (e) { return e.id === UI.gastoEventoId; });
+      if (evento) return renderEventoDetail(evento);
+      UI.gastoEventoId = null;
+    }
+    const balances = computeBalances(S.gastos, S.members);
+    const transacciones = simplifyDebts(balances);
+    const myBalance = balances[S.yo] || 0;
+
+    const txHtml = transacciones.length ? (
+      '<div class="mb-5">' +
+        '<p class="text-xs font-semibold opacity-50 mb-2" style="text-transform:uppercase;letter-spacing:.03em">Para saldar cuentas</p>' +
+        '<div class="space-y-15">' +
+          transacciones.map(function (t) {
+            return (
+              '<div class="flex items-center gap-2 text-sm px-3 py-2 rounded-lg" style="background:var(--card)">' +
+                '<span class="font-medium">' + esc(t.from) + '</span>' + icon('arrowRight', 13, 'style="opacity:.4"') +
+                '<span class="font-medium">' + esc(t.to) + '</span>' +
+                '<span class="mono ml-auto font-semibold" style="color:var(--ink)">' + fmt(t.amt) + '</span>' +
+              '</div>'
+            );
+          }).join('') +
+        '</div>' +
+      '</div>'
+    ) : '';
+
+    const createForm = UI.showCreateEvento ? renderCreateEvento() : '';
+    const eventosList = S.eventos.length ? S.eventos.map(function (e) {
+      const gastosEvento = S.gastos.filter(function (g) { return g.eventoId === e.id; });
+      const total = gastosEvento.reduce(function (s, g) { return s + g.monto; }, 0);
+      return (
+        '<button data-open-evento="' + e.id + '" class="w-full text-left p-3 rounded-xl border flex items-center gap-3">' +
+          '<div class="flex-1">' +
+            '<p class="text-sm font-semibold">' + esc(e.nombre) + '</p>' +
+            '<p class="text-xs opacity-55">' + new Date(e.fecha).toLocaleDateString('es-AR', { day: 'numeric', month: 'short' }) + ' · ' + e.participantes.length + ' personas · ' + gastosEvento.length + ' gasto' + (gastosEvento.length === 1 ? '' : 's') + '</p>' +
+          '</div>' +
+          '<span class="mono text-sm font-semibold">' + fmt(total) + '</span>' +
+        '</button>'
+      );
+    }).join('<div style="height:8px"></div>') : (!UI.showCreateEvento ? '<p class="text-sm opacity-45 text-center" style="padding:32px 0">Todavía no armaste ninguna juntada. Creá una para empezar a cargar gastos.</p>' : '');
+
+    return (
+      '<div class="pb-4">' +
+        '<div class="rounded-xl p-4 mb-5" style="background:var(--ink);color:#fff;background-image:repeating-linear-gradient(135deg, rgba(255,255,255,0.03) 0 2px, transparent 2px 8px)">' +
+          '<p class="text-xs opacity-70 mb-1">tu balance general</p>' +
+          '<p class="mono text-2xl font-semibold">' + (myBalance >= 0 ? '+' : '') + fmt(myBalance) + '</p>' +
+          '<p class="text-xs opacity-60 mt-1">' + (myBalance >= 0 ? 'te deben en total' : 'debés en total') + '</p>' +
+        '</div>' +
+        txHtml +
+        '<div class="flex items-center justify-between mb-2">' +
+          '<p class="text-xs font-semibold opacity-50" style="text-transform:uppercase;letter-spacing:.03em">Juntadas</p>' +
+          (!UI.showCreateEvento ? '<button id="btn-show-create-evento" class="flex items-center gap-1 text-xs font-semibold" style="color:var(--ink)">' + icon('plus', 14) + 'Nueva</button>' : '') +
+        '</div>' +
+        createForm +
+        '<div class="space-y-2">' + eventosList + '</div>' +
+      '</div>'
+    );
+  }
+
+  function renderCreateEvento() {
+    const chips = S.members.map(function (m) {
+      return '<button data-evento-chip="' + esc(m) + '" class="chip on" style="border-color:var(--pos);background:var(--pos)">' + esc(m) + '</button>';
+    }).join('');
+    return (
+      '<div class="rounded-xl border p-3 mb-4 space-y-25">' +
+        '<input id="evento-nombre" class="field" placeholder="Nombre de la juntada (ej: asado del sábado)">' +
+        '<input id="evento-fecha" type="date" class="field" value="' + new Date().toISOString().slice(0, 10) + '">' +
+        '<div>' +
+          '<p class="text-xs opacity-60 mb-1">¿Quiénes van?</p>' +
+          '<div id="evento-chips" class="flex flex-wrap gap-15">' + chips + '</div>' +
+        '</div>' +
+        '<div class="flex gap-2 pt-1">' +
+          '<button id="btn-cancel-evento" class="flex-1 py-2 rounded-lg text-sm border">Cancelar</button>' +
+          '<button id="btn-create-evento" class="flex-1 py-2 rounded-lg text-sm font-semibold" style="background:var(--ink);color:#fff">Crear</button>' +
+        '</div>' +
+      '</div>'
+    );
+  }
+
+  function renderEventoDetail(evento) {
+    const gastosEvento = S.gastos.filter(function (g) { return g.eventoId === evento.id; });
+    const balances = computeBalances(gastosEvento, evento.participantes);
+    const transacciones = simplifyDebts(balances);
+    const total = gastosEvento.reduce(function (s, g) { return s + g.monto; }, 0);
+
+    const txHtml = transacciones.length ? (
+      '<div class="mb-5">' +
+        '<p class="text-xs font-semibold opacity-50 mb-2" style="text-transform:uppercase;letter-spacing:.03em">Quién le paga a quién</p>' +
+        '<div class="space-y-15">' +
+          transacciones.map(function (t) {
+            return (
+              '<div class="flex items-center gap-2 text-sm px-3 py-2 rounded-lg" style="background:var(--card)">' +
+                '<span class="font-medium">' + esc(t.from) + '</span>' + icon('arrowRight', 13, 'style="opacity:.4"') +
+                '<span class="font-medium">' + esc(t.to) + '</span>' +
+                '<span class="mono ml-auto font-semibold" style="color:var(--ink)">' + fmt(t.amt) + '</span>' +
+              '</div>'
+            );
+          }).join('') +
+        '</div>' +
+      '</div>'
+    ) : '';
+
+    const gastoForm = UI.showGastoForm ? renderGastoForm(evento) : '';
+    const gastosList = gastosEvento.length ? gastosEvento.map(function (g) {
+      const mine = g.pagador === S.yo;
+      return (
+        '<div class="flex items-center gap-3 p-3 rounded-xl relative border-dashed">' +
+          '<div class="flex-1">' +
+            '<p class="text-sm font-medium">' + esc(g.desc) + '</p>' +
+            '<p class="text-xs opacity-55">pagó ' + esc(g.pagador) + ' · dividido entre ' + g.participantes.length + '</p>' +
+          '</div>' +
+          '<span class="mono text-sm font-semibold">' + fmt(g.monto) + '</span>' +
+          (mine ? '<button data-remove-gasto="' + g.id + '" class="opacity-30">' + icon('trash', 14) + '</button>' : '') +
+        '</div>'
+      );
+    }).join('') : '<p class="text-sm opacity-45 text-center" style="padding:32px 0">Todavía no hay gastos cargados en esta juntada.</p>';
+
+    return (
+      '<div class="pb-4">' +
+        '<button id="btn-back-eventos" class="flex items-center gap-1 text-xs font-medium opacity-60 mb-3">' + icon('chevronLeft', 14) + 'Todas las juntadas</button>' +
+        '<div class="flex items-start justify-between mb-1">' +
+          '<div>' +
+            '<h2 class="display text-xl font-semibold">' + esc(evento.nombre) + '</h2>' +
+            '<p class="text-xs opacity-55">' + new Date(evento.fecha).toLocaleDateString('es-AR', { day: 'numeric', month: 'long' }) + ' · ' + evento.participantes.map(esc).join(', ') + '</p>' +
+          '</div>' +
+          '<button id="btn-remove-evento" class="opacity-30 shrink-0">' + icon('trash', 15) + '</button>' +
+        '</div>' +
+        '<div class="rounded-xl p-4 mb-4 mt-3" style="background:var(--card)">' +
+          '<p class="text-xs opacity-60">total gastado</p>' +
+          '<p class="mono text-2xl font-semibold">' + fmt(total) + '</p>' +
+        '</div>' +
+        txHtml +
+        (!UI.showGastoForm ? '<button id="btn-show-gasto-form" class="w-full flex items-center justify-center gap-2 py-25 rounded-xl text-sm font-semibold mb-5" style="background:var(--ink);color:#fff">' + icon('plus', 16) + 'Cargar gasto de esta juntada</button>' : gastoForm) +
+        '<div class="space-y-2">' + gastosList + '</div>' +
+      '</div>'
+    );
+  }
+
+  function renderGastoForm(evento) {
+    if (!UI.gastoForm) UI.gastoForm = { pagador: evento.participantes.indexOf(S.yo) !== -1 ? S.yo : evento.participantes[0], participantes: evento.participantes.slice() };
+    const gf = UI.gastoForm;
+    const pagadorChips = evento.participantes.map(function (m) {
+      const on = gf.pagador === m;
+      return '<button data-pagador-chip="' + esc(m) + '" class="chip' + (on ? ' on' : '') + '" style="' + (on ? 'border-color:var(--ink);background:var(--ink)' : '') + '">' + esc(m) + '</button>';
+    }).join('');
+    const partChips = evento.participantes.map(function (m) {
+      const on = gf.participantes.indexOf(m) !== -1;
+      return '<button data-part-chip="' + esc(m) + '" class="chip' + (on ? ' on' : '') + '" style="' + (on ? 'border-color:var(--pos);background:var(--pos)' : '') + '">' + esc(m) + '</button>';
+    }).join('');
+    return (
+      '<div class="rounded-xl border p-3 mb-5 space-y-25">' +
+        '<input id="gasto-desc" class="field" placeholder="¿Qué se pagó? (ej: carne, hielo, nafta)">' +
+        '<input id="gasto-monto" type="number" class="field mono" placeholder="Monto total">' +
+        '<div><p class="text-xs opacity-60 mb-1">¿Quién pagó?</p><div id="pagador-chips" class="flex flex-wrap gap-15">' + pagadorChips + '</div></div>' +
+        '<div><p class="text-xs opacity-60 mb-1">¿Entre quiénes se divide?</p><div id="part-chips" class="flex flex-wrap gap-15">' + partChips + '</div></div>' +
+        '<div class="flex gap-2 pt-1">' +
+          '<button id="btn-cancel-gasto" class="flex-1 py-2 rounded-lg text-sm border">Cancelar</button>' +
+          '<button id="btn-save-gasto" class="flex-1 py-2 rounded-lg text-sm font-semibold" style="background:var(--ink);color:#fff">Guardar</button>' +
+        '</div>' +
+      '</div>'
+    );
+  }
+
+  function bindGastos() {
+    const backBtn = document.getElementById('btn-back-eventos');
+    if (backBtn) backBtn.addEventListener('click', function () { UI.gastoEventoId = null; UI.showGastoForm = false; UI.gastoForm = null; render(); });
+
+    const showCreate = document.getElementById('btn-show-create-evento');
+    if (showCreate) showCreate.addEventListener('click', function () { UI.showCreateEvento = true; render(); });
+
+    const cancelEvento = document.getElementById('btn-cancel-evento');
+    if (cancelEvento) cancelEvento.addEventListener('click', function () { UI.showCreateEvento = false; render(); });
+
+    const chipsWrap = document.getElementById('evento-chips');
+    let eventoParticipantes = S.members.slice();
+    if (chipsWrap) {
+      chipsWrap.querySelectorAll('[data-evento-chip]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          const name = btn.getAttribute('data-evento-chip');
+          const idx = eventoParticipantes.indexOf(name);
+          if (idx !== -1) { eventoParticipantes.splice(idx, 1); btn.classList.remove('on'); btn.style.background = 'transparent'; btn.style.borderColor = 'rgba(0,0,0,.2)'; btn.style.color = 'var(--ink)'; }
+          else { eventoParticipantes.push(name); btn.classList.add('on'); btn.style.background = 'var(--pos)'; btn.style.borderColor = 'var(--pos)'; btn.style.color = '#fff'; }
+        });
+      });
+    }
+    const createBtn = document.getElementById('btn-create-evento');
+    if (createBtn) createBtn.addEventListener('click', function () {
+      const nombre = document.getElementById('evento-nombre').value.trim();
+      const fecha = document.getElementById('evento-fecha').value;
+      if (!nombre || !eventoParticipantes.length) return;
+      UI.showCreateEvento = false;
+      addEvento({ nombre: nombre, fecha: fecha, participantes: eventoParticipantes });
+    });
+
+    root.querySelectorAll('[data-open-evento]').forEach(function (btn) {
+      btn.addEventListener('click', function () { UI.gastoEventoId = Number(btn.getAttribute('data-open-evento')); UI.showGastoForm = false; UI.gastoForm = null; render(); });
+    });
+
+    const removeEventoBtn = document.getElementById('btn-remove-evento');
+    if (removeEventoBtn) removeEventoBtn.addEventListener('click', function () {
+      const id = UI.gastoEventoId;
+      UI.gastoEventoId = null;
+      removeEvento(id);
+    });
+
+    const showGastoForm = document.getElementById('btn-show-gasto-form');
+    if (showGastoForm) showGastoForm.addEventListener('click', function () { UI.showGastoForm = true; UI.gastoForm = null; render(); });
+
+    const cancelGasto = document.getElementById('btn-cancel-gasto');
+    if (cancelGasto) cancelGasto.addEventListener('click', function () { UI.showGastoForm = false; UI.gastoForm = null; render(); });
+
+    root.querySelectorAll('[data-pagador-chip]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        UI.gastoForm.pagador = btn.getAttribute('data-pagador-chip');
+        document.querySelectorAll('#pagador-chips [data-pagador-chip]').forEach(function (b) {
+          const on = b.getAttribute('data-pagador-chip') === UI.gastoForm.pagador;
+          b.classList.toggle('on', on);
+          b.style.background = on ? 'var(--ink)' : 'transparent';
+          b.style.borderColor = on ? 'var(--ink)' : 'rgba(0,0,0,.2)';
+          b.style.color = on ? '#fff' : 'var(--ink)';
+        });
+      });
+    });
+    root.querySelectorAll('[data-part-chip]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        const name = btn.getAttribute('data-part-chip');
+        const arr = UI.gastoForm.participantes;
+        const idx = arr.indexOf(name);
+        if (idx !== -1) { arr.splice(idx, 1); btn.classList.remove('on'); btn.style.background = 'transparent'; btn.style.borderColor = 'rgba(0,0,0,.2)'; btn.style.color = 'var(--ink)'; }
+        else { arr.push(name); btn.classList.add('on'); btn.style.background = 'var(--pos)'; btn.style.borderColor = 'var(--pos)'; btn.style.color = '#fff'; }
+      });
+    });
+    const saveGasto = document.getElementById('btn-save-gasto');
+    if (saveGasto) saveGasto.addEventListener('click', function () {
+      const desc = document.getElementById('gasto-desc').value.trim();
+      const monto = parseFloat(document.getElementById('gasto-monto').value);
+      const gf = UI.gastoForm;
+      if (!desc || !monto || !gf.pagador || !gf.participantes.length) return;
+      const eventoId = UI.gastoEventoId;
+      UI.showGastoForm = false;
+      UI.gastoForm = null;
+      addGasto({ desc: desc, monto: monto, pagador: gf.pagador, participantes: gf.participantes, eventoId: eventoId });
+    });
+
+    root.querySelectorAll('[data-remove-gasto]').forEach(function (btn) {
+      btn.addEventListener('click', function () { removeGasto(Number(btn.getAttribute('data-remove-gasto'))); });
+    });
+  }
+
+  /* ---------- cuotas ---------- */
+  function renderCuotas() {
+    const puedo = puedeFinanzas(S.yo);
+    const recaudadoHistorico = computeRecaudadoHistorico();
+    const gastosClubTotal = S.gastosClub.reduce(function (s, g) { return s + g.monto; }, 0);
+    const saldoClub = recaudadoHistorico - gastosClubTotal;
+
+    const subTabs = [{ id: 'estado', label: 'Estado' }, { id: 'gastosClub', label: 'Gastos del club' }];
+    const subNav = subTabs.map(function (t) {
+      const active = UI.cuotaSubTab === t.id;
+      return '<button data-cuota-subtab="' + t.id + '" class="flex-1 text-xs font-semibold py-2 rounded-lg" style="' + (active ? 'background:var(--ink);color:#fff' : 'background:var(--card);color:var(--ink)') + '">' + t.label + '</button>';
+    }).join('');
+
+    const saldoTicket = (
+      '<div class="rounded-xl p-4 mb-4" style="background:var(--ink);color:#fff">' +
+        '<p class="text-xs opacity-70 mb-1">saldo del club</p>' +
+        '<p class="mono text-2xl font-semibold" style="color:' + (saldoClub >= 0 ? 'var(--celeste)' : 'var(--neg)') + '">' + fmt(saldoClub) + '</p>' +
+        '<p class="text-xs opacity-60 mt-1">recaudado histórico ' + fmt(recaudadoHistorico) + ' · gastado ' + fmt(gastosClubTotal) + '</p>' +
+      '</div>'
+    );
+
+    return (
+      '<div class="pb-4">' +
+        saldoTicket +
+        '<div class="flex gap-2 mb-4">' + subNav + '</div>' +
+        (UI.cuotaSubTab === 'estado' ? renderCuotaEstado(puedo) : renderCuotaGastosClub(puedo)) +
+      '</div>'
+    );
+  }
+
+  function renderCuotaEstado(puedo) {
+    const tipos = S.cuotaTipos[S.month] || { entrenamiento: 0, fullPatriota: 0 };
+    const elecciones = S.cuotaElecciones[S.month] || {};
+    const pagosMes = S.cuotaPagos[S.month] || {};
+    function montoDe(m) { return elecciones[m] === 'fullPatriota' ? tipos.fullPatriota : tipos.entrenamiento; }
+    const total = S.members.reduce(function (s, m) { return s + (elecciones[m] ? montoDe(m) : 0); }, 0);
+    const recaudado = S.members.reduce(function (s, m) { return s + (pagosMes[m] && elecciones[m] ? montoDe(m) : 0); }, 0);
+
+    const membersHtml = S.members.length ? S.members.map(function (m) {
+      const paid = !!pagosMes[m];
+      const tipo = elecciones[m];
+      const esMio = m === S.yo;
+      const pagoBadge = puedo
+        ? '<button data-toggle-pago="' + esc(m) + '" class="text-xs font-semibold px-2 rounded-full" style="padding:2px 8px;background:' + (paid ? 'var(--pos)' : 'var(--neg)') + ';color:#fff">' + (paid ? 'pagó' : 'debe') + '</button>'
+        : '<span class="text-xs font-semibold px-2 rounded-full" style="padding:2px 8px;background:' + (paid ? 'var(--pos)' : 'var(--neg)') + ';color:#fff">' + (paid ? 'al día' : 'pendiente') + '</span>';
+      const planSection = esMio
+        ? '<div class="flex gap-15">' + ['entrenamiento', 'fullPatriota'].map(function (t) {
+            const on = tipo === t;
+            const label = t === 'entrenamiento' ? 'Entrenamiento' : 'Full Patriota';
+            const val = t === 'entrenamiento' ? tipos.entrenamiento : tipos.fullPatriota;
+            return '<button data-elegir="' + t + '" class="flex-1 text-xs font-medium py-15 rounded-lg border" style="' + (on ? 'border-color:var(--celeste);background:var(--celeste);color:#fff' : 'color:var(--ink)') + '">' + label + ' · ' + fmt(val) + '</button>';
+          }).join('') + '</div>'
+        : '<p class="text-xs opacity-55">' + (tipo ? (tipo === 'entrenamiento' ? 'Entrenamiento' : 'Full Patriota') + ' · ' + fmt(montoDe(m)) : 'todavía no eligió plan') + '</p>';
+      return (
+        '<div class="px-3 py-25 rounded-xl border" data-member-row="' + esc(m) + '" style="border-color:' + (paid ? 'var(--pos)' : 'rgba(0,0,0,.15)') + ';background:' + (paid ? 'rgba(62,142,89,.06)' : 'transparent') + '">' +
+          '<div class="flex items-center justify-between mb-15">' +
+            '<span class="text-sm font-medium">' + esc(m) + (m === S.admin ? ' <span style="color:var(--celeste)" class="text-xs">★ Admin</span>' : '') + '</span>' +
+            pagoBadge +
+          '</div>' +
+          planSection +
+        '</div>'
+      );
+    }).join('<div style="height:6px"></div>') : '<p class="text-sm opacity-45 text-center" style="padding:32px 0">Sumá amigos al grupo para armar la lista de la cuota.</p>';
+
+    return (
+      '<div>' +
+        '<div class="flex items-center justify-between mb-4">' +
+          '<button id="btn-month-prev" class="opacity-60" style="padding:6px">' + icon('chevronLeft', 18) + '</button>' +
+          '<span class="text-sm font-semibold capitalize">' + monthLabel(S.month) + '</span>' +
+          '<button id="btn-month-next" class="opacity-60" style="padding:6px">' + icon('chevronRight', 18) + '</button>' +
+        '</div>' +
+        '<div class="rounded-xl p-4 mb-3" style="background:var(--card)">' +
+          '<p class="text-xs opacity-60 mb-2">planes de este mes' + (!puedo ? ' <span class="opacity-60">(los define el Admin)</span>' : '') + '</p>' +
+          renderTipoRow('Entrenamiento', 'entrenamiento', tipos.entrenamiento, puedo) +
+          '<div style="height:8px"></div>' +
+          renderTipoRow('Full Patriota', 'fullPatriota', tipos.fullPatriota, puedo) +
+        '</div>' +
+        '<div class="rounded-xl p-4 mb-5" style="background:var(--card)">' +
+          '<div class="flex items-center justify-between">' +
+            '<div><p class="text-xs opacity-60">recaudado del mes</p><p class="mono text-xl font-semibold">' + fmt(recaudado) + '</p></div>' +
+            '<div class="text-right"><p class="text-xs opacity-60">esperado del mes</p><p class="mono text-xl font-semibold">' + fmt(total) + '</p></div>' +
+          '</div>' +
+        '</div>' +
+        membersHtml +
+      '</div>'
+    );
+  }
+
+  function renderCuotaGastosClub(puedo) {
+    const form = puedo ? (
+      '<div class="rounded-xl border p-3 mb-4 space-y-25">' +
+        '<input id="gc-desc" class="field" placeholder="¿En qué se gastó? (ej: cancha, pelotas, árbitro)">' +
+        '<div class="flex gap-2">' +
+          '<input id="gc-monto" type="number" class="field mono" placeholder="Monto" style="flex:1">' +
+          '<input id="gc-fecha" type="date" class="field" style="flex:1" value="' + new Date().toISOString().slice(0, 10) + '">' +
+        '</div>' +
+        '<button id="btn-add-gasto-club" class="w-full py-2 rounded-lg text-sm font-semibold" style="background:var(--ink);color:#fff">Registrar gasto</button>' +
+      '</div>'
+    ) : '';
+
+    const list = S.gastosClub.length ? S.gastosClub.map(function (g) {
+      return (
+        '<div class="flex items-center gap-3 p-3 rounded-xl relative border-dashed">' +
+          '<div class="flex-1">' +
+            '<p class="text-sm font-medium">' + esc(g.desc) + '</p>' +
+            '<p class="text-xs opacity-55">' + new Date(g.fecha).toLocaleDateString('es-AR', { day: 'numeric', month: 'short' }) + ' · cargó ' + esc(g.cargadoPor) + '</p>' +
+          '</div>' +
+          '<span class="mono text-sm font-semibold">' + fmt(g.monto) + '</span>' +
+          (puedo ? '<button data-remove-gasto-club="' + g.id + '" class="opacity-30">' + icon('trash', 14) + '</button>' : '') +
+        '</div>'
+      );
+    }).join('') : '<p class="text-sm opacity-45 text-center" style="padding:32px 0">Todavía no se cargó ningún gasto del club.</p>';
+
+    return '<div>' + form + '<div class="space-y-2">' + list + '</div></div>';
+  }
+
+  function renderTipoRow(label, tipoKey, valor, puedo) {
+    const editing = UI.cuotaEditingTipo === tipoKey;
+    return (
+      '<div class="flex items-center justify-between" data-tipo-row="' + tipoKey + '">' +
+        '<span class="text-sm font-medium">' + label + '</span>' +
+        (editing
+          ? '<div class="flex items-center gap-2"><input id="tipo-draft-' + tipoKey + '" type="number" class="mono" style="width:96px;padding:4px 8px;border-radius:8px;border:1px solid rgba(0,0,0,.2)" value="' + valor + '"><button data-save-tipo="' + tipoKey + '" class="text-xs font-semibold" style="background:var(--celeste);color:#fff;padding:4px 8px;border-radius:8px">Ok</button></div>'
+          : '<p data-edit-tipo="' + tipoKey + '" class="mono text-sm font-semibold' + (puedo ? ' cursor-pointer' : '') + '">' + fmt(valor) + '</p>'
+        ) +
+      '</div>'
+    );
+  }
+
+  function bindCuotas() {
+    const puedo = puedeFinanzas(S.yo);
+
+    root.querySelectorAll('[data-cuota-subtab]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        UI.cuotaSubTab = btn.getAttribute('data-cuota-subtab');
+        UI.cuotaEditingTipo = null;
+        render();
+      });
+    });
+
+    if (UI.cuotaSubTab === 'estado') {
+      document.getElementById('btn-month-prev').addEventListener('click', function () { shiftMonth(-1); });
+      document.getElementById('btn-month-next').addEventListener('click', function () { shiftMonth(1); });
+
+      ['entrenamiento', 'fullPatriota'].forEach(function (tipoKey) {
+        if (puedo) {
+          const editBtn = root.querySelector('[data-edit-tipo="' + tipoKey + '"]');
+          if (editBtn) editBtn.addEventListener('click', function () { UI.cuotaEditingTipo = tipoKey; render(); });
+        }
+        const saveBtn = root.querySelector('[data-save-tipo="' + tipoKey + '"]');
+        if (saveBtn) saveBtn.addEventListener('click', function () {
+          const val = parseFloat(document.getElementById('tipo-draft-' + tipoKey).value) || 0;
+          UI.cuotaEditingTipo = null;
+          saveCuotaTipo(S.month, tipoKey, val);
+        });
+      });
+
+      root.querySelectorAll('[data-toggle-pago]').forEach(function (btn) {
+        btn.addEventListener('click', function () { togglePago(S.month, btn.getAttribute('data-toggle-pago')); });
+      });
+      root.querySelectorAll('[data-member-row]').forEach(function (rowEl) {
+        const member = rowEl.getAttribute('data-member-row');
+        rowEl.querySelectorAll('[data-elegir]').forEach(function (btn) {
+          btn.addEventListener('click', function () { elegirCuota(S.month, member, btn.getAttribute('data-elegir')); });
+        });
+      });
+    } else {
+      const addBtn = document.getElementById('btn-add-gasto-club');
+      if (addBtn) addBtn.addEventListener('click', function () {
+        const desc = document.getElementById('gc-desc').value.trim();
+        const monto = parseFloat(document.getElementById('gc-monto').value);
+        const fecha = document.getElementById('gc-fecha').value;
+        if (!desc || !monto) return;
+        addGastoClub({ desc: desc, monto: monto, fecha: fecha });
+      });
+      root.querySelectorAll('[data-remove-gasto-club]').forEach(function (btn) {
+        btn.addEventListener('click', function () { removeGastoClub(Number(btn.getAttribute('data-remove-gasto-club'))); });
+      });
+    }
+  }
+  function shiftMonth(delta) {
+    const parts = S.month.split('-').map(Number);
+    const d = new Date(parts[0], parts[1] - 1 + delta, 1);
+    S.month = monthKey(d);
+    render();
+  }
+
+  /* ---------- global binds ---------- */
+  function bindApp() {
+    document.getElementById('btn-cambiar').addEventListener('click', cambiarYo);
+    root.querySelectorAll('[data-tab]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        S.tab = btn.getAttribute('data-tab');
+        UI.gastoEventoId = null; UI.showCreateEvento = false; UI.showGastoForm = false; UI.gastoForm = null; UI.cuotaEditingTipo = null;
+        render();
+      });
+    });
+    const toggleMembers = document.getElementById('btn-toggle-members');
+    toggleMembers.addEventListener('click', function () { UI.membersOpen = !UI.membersOpen; render(); });
+    if (UI.membersOpen) {
+      const addBtn = document.getElementById('btn-add-member');
+      if (addBtn) addBtn.addEventListener('click', function () {
+        const input = document.getElementById('new-member-name');
+        const numInput = document.getElementById('new-member-numero');
+        addMember(input.value, numInput.value).then(render);
+      });
+      root.querySelectorAll('[data-remove-member]').forEach(function (btn) {
+        btn.addEventListener('click', function () { removeMember(btn.getAttribute('data-remove-member')).then(render); });
+      });
+      root.querySelectorAll('[data-toggle-finanzas]').forEach(function (btn) {
+        btn.addEventListener('click', function () { toggleFinanzas(btn.getAttribute('data-toggle-finanzas')); });
+      });
+    }
+    if (S.tab === 'avisos') bindAvisos();
+    else if (S.tab === 'gastos') bindGastos();
+    else bindCuotas();
+  }
+
+  loadAll();
+})();
+</script>
+</body>
+</html>
