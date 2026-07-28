@@ -1,0 +1,1753 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Patriotas</title>
+<link rel="icon" type="image/png" href="logo.png">
+<style>
+  html, body { margin: 0; padding: 0; background: #F3F9FB; }
+  #patriotas-app, #patriotas-app * { box-sizing: border-box; }
+  #patriotas-app {
+    --ink: #12161A;
+    --bg: #F3F9FB;
+    --celeste: #159FD6;
+    --card: #E7F4F9;
+    --pos: #3E8E5B;
+    --neg: #C6473D;
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    min-height: 100vh;
+    padding-bottom: 92px;
+    position: relative;
+  }
+  #patriotas-app button { font-family: inherit; border: none; background: none; cursor: pointer; color: inherit; }
+  #patriotas-app input { font-family: inherit; color: inherit; }
+  #patriotas-app .mono { font-family: 'JetBrains Mono', monospace; }
+  #patriotas-app .display { font-family: 'Fraunces', serif; }
+
+  #patriotas-app .flex { display: flex; }
+  #patriotas-app .items-center { align-items: center; }
+  #patriotas-app .items-baseline { align-items: baseline; }
+  #patriotas-app .items-start { align-items: flex-start; }
+  #patriotas-app .justify-between { justify-content: space-between; }
+  #patriotas-app .justify-center { justify-content: center; }
+  #patriotas-app .flex-1 { flex: 1 1 0%; }
+  #patriotas-app .flex-wrap { flex-wrap: wrap; }
+  #patriotas-app .flex-col { flex-direction: column; }
+  #patriotas-app .shrink-0 { flex-shrink: 0; }
+  #patriotas-app .gap-1 { gap: 4px; }
+  #patriotas-app .gap-15 { gap: 6px; }
+  #patriotas-app .gap-2 { gap: 8px; }
+  #patriotas-app .gap-25 { gap: 10px; }
+  #patriotas-app .gap-3 { gap: 12px; }
+  #patriotas-app .w-full { width: 100%; }
+  #patriotas-app .text-xs { font-size: 12px; }
+  #patriotas-app .text-sm { font-size: 14px; }
+  #patriotas-app .text-base { font-size: 16px; }
+  #patriotas-app .text-xl { font-size: 20px; }
+  #patriotas-app .text-2xl { font-size: 24px; }
+  #patriotas-app .text-3xl { font-size: 30px; }
+  #patriotas-app .font-medium { font-weight: 500; }
+  #patriotas-app .font-semibold { font-weight: 600; }
+  #patriotas-app .font-bold { font-weight: 700; }
+  #patriotas-app .rounded-lg { border-radius: 10px; }
+  #patriotas-app .rounded-xl { border-radius: 14px; }
+  #patriotas-app .rounded-full { border-radius: 999px; }
+  #patriotas-app .opacity-40 { opacity: .4; }
+  #patriotas-app .opacity-45 { opacity: .45; }
+  #patriotas-app .opacity-50 { opacity: .5; }
+  #patriotas-app .opacity-55 { opacity: .55; }
+  #patriotas-app .opacity-60 { opacity: .6; }
+  #patriotas-app .opacity-70 { opacity: .7; }
+  #patriotas-app .px-2 { padding-left: 8px; padding-right: 8px; }
+  #patriotas-app .px-25 { padding-left: 10px; padding-right: 10px; }
+  #patriotas-app .px-3 { padding-left: 12px; padding-right: 12px; }
+  #patriotas-app .px-4 { padding-left: 16px; padding-right: 16px; }
+  #patriotas-app .px-5 { padding-left: 20px; padding-right: 20px; }
+  #patriotas-app .py-1 { padding-top: 4px; padding-bottom: 4px; }
+  #patriotas-app .py-15 { padding-top: 6px; padding-bottom: 6px; }
+  #patriotas-app .py-2 { padding-top: 8px; padding-bottom: 8px; }
+  #patriotas-app .py-25 { padding-top: 10px; padding-bottom: 10px; }
+  #patriotas-app .py-3 { padding-top: 12px; padding-bottom: 12px; }
+  #patriotas-app .p-3 { padding: 12px; }
+  #patriotas-app .p-4 { padding: 16px; }
+  #patriotas-app .p-6 { padding: 24px; }
+  #patriotas-app .mb-1 { margin-bottom: 4px; }
+  #patriotas-app .mb-15 { margin-bottom: 6px; }
+  #patriotas-app .mb-2 { margin-bottom: 8px; }
+  #patriotas-app .mb-3 { margin-bottom: 12px; }
+  #patriotas-app .mb-4 { margin-bottom: 16px; }
+  #patriotas-app .mb-5 { margin-bottom: 20px; }
+  #patriotas-app .mb-6 { margin-bottom: 24px; }
+  #patriotas-app .mt-1 { margin-top: 4px; }
+  #patriotas-app .mt-2 { margin-top: 8px; }
+  #patriotas-app .ml-1 { margin-left: 4px; }
+  #patriotas-app .ml-15 { margin-left: 6px; }
+  #patriotas-app .ml-auto { margin-left: auto; }
+  #patriotas-app .pt-2 { padding-top: 8px; }
+  #patriotas-app .pt-3 { padding-top: 12px; }
+  #patriotas-app .pt-4 { padding-top: 16px; }
+  #patriotas-app .pt-5 { padding-top: 20px; }
+  #patriotas-app .pt-8 { padding-top: 32px; }
+  #patriotas-app .pb-3 { padding-bottom: 12px; }
+  #patriotas-app .pb-4 { padding-bottom: 16px; }
+  #patriotas-app .pl-11 { padding-left: 44px; }
+  #patriotas-app .border { border: 1px solid rgba(0,0,0,.15); }
+  #patriotas-app .border-dashed { border-bottom: 1px dashed rgba(0,0,0,.2); }
+  #patriotas-app .capitalize { text-transform: capitalize; }
+  #patriotas-app .underline { text-decoration: underline; }
+  #patriotas-app .cursor-pointer { cursor: pointer; }
+  #patriotas-app .text-right { text-align: right; }
+  #patriotas-app .text-center { text-align: center; }
+  #patriotas-app .text-left { text-align: left; }
+  #patriotas-app .relative { position: relative; }
+  #patriotas-app .sticky { position: sticky; top: 0; z-index: 10; }
+  #patriotas-app .tracking-tight { letter-spacing: -0.02em; }
+  #patriotas-app .space-y-15 > * + * { margin-top: 6px; }
+  #patriotas-app .space-y-2 > * + * { margin-top: 8px; }
+  #patriotas-app .space-y-25 > * + * { margin-top: 10px; }
+  #patriotas-app .space-y-3 > * + * { margin-top: 12px; }
+  #patriotas-app .chip {
+    padding: 6px 10px; border-radius: 999px; font-size: 12px; font-weight: 500;
+    border: 1px solid rgba(0,0,0,.2); background: transparent; color: var(--ink);
+  }
+  #patriotas-app .chip.on { color: #fff; }
+  #patriotas-app .btn-primary {
+    background: var(--celeste); color: #fff; font-weight: 600; border-radius: 14px;
+  }
+  #patriotas-app .field {
+    width: 100%; padding: 10px 12px; border-radius: 10px; border: 1px solid rgba(0,0,0,.2);
+    background: #fff; font-size: 14px;
+  }
+  #patriotas-app svg { display: block; }
+</style>
+</head>
+<body>
+
+<div id="patriotas-app"></div>
+
+<script>
+(function () {
+  const root = document.getElementById('patriotas-app');
+
+  /* ---------- fonts ---------- */
+  (function loadFonts() {
+    const href = "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap";
+    if (!document.querySelector('link[href="' + href + '"]')) {
+      const l = document.createElement('link');
+      l.rel = 'stylesheet';
+      l.href = href;
+      document.head.appendChild(l);
+    }
+  })();
+
+  /* ---------- icons (minimal inline svg) ---------- */
+  function icon(name, size, extra) {
+    size = size || 16;
+    extra = extra || '';
+    const common = 'width="' + size + '" height="' + size + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ' + extra;
+    const paths = {
+      megaphone: '<path d="M3 11v2a1 1 0 0 0 1 1h2l3.5 5.5a1 1 0 0 0 1.5-1.3L9.5 14H15a9 9 0 0 0 4-1v-8a9 9 0 0 0-4-1H9a6 6 0 0 0-6 6z"/><path d="M15 5v14"/>',
+      wallet: '<rect x="2.5" y="6" width="19" height="13" rx="2.5"/><path d="M2.5 10h19"/><circle cx="17" cy="14" r="1.2" fill="currentColor" stroke="none"/>',
+      calendar: '<rect x="3.5" y="5" width="17" height="16" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/><path d="M8.5 14.5l2 2 4-4.2"/>',
+      plus: '<path d="M12 5v14M5 12h14"/>',
+      x: '<path d="M6 6l12 12M18 6L6 18"/>',
+      chevronLeft: '<path d="M15 18l-6-6 6-6"/>',
+      chevronRight: '<path d="M9 18l6-6-6-6"/>',
+      arrowRight: '<path d="M5 12h14M13 6l6 6-6 6"/>',
+      trash: '<path d="M4 7h16M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2m2 0-1 13a1.5 1.5 0 0 1-1.5 1.4h-7A1.5 1.5 0 0 1 6 20L5 7"/>',
+      users: '<circle cx="9" cy="8" r="3.2"/><path d="M2.5 19c.7-3.3 3.2-5 6.5-5s5.8 1.7 6.5 5"/><circle cx="17.2" cy="9" r="2.4"/><path d="M15.8 14.2c2.4.4 4 1.8 4.6 4.5"/>',
+      star: '<path d="M12 3.5l2.6 5.3 5.8.8-4.2 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8-4.2-4.1 5.8-.8z"/>',
+      dollar: '<path d="M12 2v20M17 6.5c-1-1-2.6-1.5-5-1.5-3 0-5 1.3-5 3.5s2 3 5 3.5c3 .5 5 1.3 5 3.5s-2 3.5-5 3.5c-2.4 0-4-.5-5-1.5"/>',
+      edit: '<path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/>'
+    };
+    return '<svg ' + common + '>' + (paths[name] || '') + '</svg>';
+  }
+
+  function jerseySvg(numero) {
+    return (
+      '<svg width="64" height="64" viewBox="0 0 80 80" fill="none">' +
+        '<path d="M33,5 L25,7 L30,26 L20,30 L18,74 Q40,79 62,74 L60,30 L50,26 L55,7 L47,5 Q40,13 33,5 Z" ' +
+          'fill="var(--celeste)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round"/>' +
+        '<path d="M34,7 Q40,12 46,7" fill="none" stroke="var(--ink)" stroke-width="2"/>' +
+        (numero ? '<text x="40" y="55" text-anchor="middle" font-family="Fraunces, serif" font-weight="700" font-size="24" fill="var(--ink)">' + esc(numero) + '</text>' : '') +
+      '</svg>'
+    );
+  }
+
+  /* ---------- pure helpers ---------- */
+  function fmt(n) {
+    return new Intl.NumberFormat('es-AR', { style: 'currency', currency: 'ARS', maximumFractionDigits: 0 }).format(Math.round(n || 0));
+  }
+  function monthKey(d) {
+    d = d || new Date();
+    return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0');
+  }
+  function monthLabel(key) {
+    const parts = key.split('-').map(Number);
+    return new Date(parts[0], parts[1] - 1, 1).toLocaleDateString('es-AR', { month: 'long', year: 'numeric' });
+  }
+  function pesoDe(eventoId, jugador) {
+    const ev = S.eventos.find(function (e) { return e.id === eventoId; });
+    const ac = ev && ev.acompanantes && ev.acompanantes[jugador];
+    return 1 + (Number(ac) || 0);
+  }
+  function computeBalances(gastos, participantes, usarPesos) {
+    const bal = {};
+    participantes.forEach(function (m) { bal[m] = 0; });
+    gastos.forEach(function (g) {
+      const parts = g.participantes.filter(function (p) { return participantes.indexOf(p) !== -1; });
+      if (!parts.length) return;
+      const pesos = parts.map(function (p) { return usarPesos ? pesoDe(g.eventoId, p) : 1; });
+      const totalPesos = pesos.reduce(function (a, b) { return a + b; }, 0);
+      const unidad = g.monto / totalPesos;
+      parts.forEach(function (p, i) {
+        const cargo = unidad * pesos[i];
+        if (p !== g.pagador) {
+          bal[p] = (bal[p] || 0) - cargo;
+          bal[g.pagador] = (bal[g.pagador] || 0) + cargo;
+        }
+      });
+    });
+    return bal;
+  }
+  function simplifyDebts(balances) {
+    const debtors = Object.entries(balances).filter(function (e) { return e[1] < -1; })
+      .map(function (e) { return { n: e[0], v: -e[1] }; }).sort(function (a, b) { return b.v - a.v; });
+    const creditors = Object.entries(balances).filter(function (e) { return e[1] > 1; })
+      .map(function (e) { return { n: e[0], v: e[1] }; }).sort(function (a, b) { return b.v - a.v; });
+    const txs = [];
+    let i = 0, j = 0;
+    while (i < debtors.length && j < creditors.length) {
+      const amt = Math.min(debtors[i].v, creditors[j].v);
+      txs.push({ from: debtors[i].n, to: creditors[j].n, amt: amt });
+      debtors[i].v -= amt; creditors[j].v -= amt;
+      if (debtors[i].v < 1) i++;
+      if (creditors[j].v < 1) j++;
+    }
+    return txs;
+  }
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+  function aliasTag(name) {
+    const alias = S.jugadores[name] && S.jugadores[name].aliasBanco;
+    return alias ? ' <span class="text-xs opacity-60">(' + esc(alias) + ')</span>' : '';
+  }
+
+  /* ---------- planes de cuota ---------- */
+  const PLAN_TIPOS = [
+    { key: 'entrenamiento', label: 'Solo Entrenamiento' },
+    { key: 'fullPatriota', label: 'Full Patriotas' },
+    { key: 'soloTBL', label: 'Solo TBL' }
+  ];
+  function planLabel(key) {
+    const p = PLAN_TIPOS.find(function (p) { return p.key === key; });
+    return p ? p.label : '';
+  }
+  function montoPorTipo(tipos, tipoKey) {
+    return (tipos && Number(tipos[tipoKey])) || 0;
+  }
+
+  /* ---------- frase motivacional del día ---------- */
+  const QUOTES = [
+    { text: 'Fallé más de 9.000 tiros en mi carrera. Y por eso tengo éxito.', autor: 'Michael Jordan' },
+    { text: 'El talento gana partidos, pero el trabajo en equipo gana campeonatos.', autor: 'Michael Jordan' },
+    { text: 'Todo lo negativo, la presión, los desafíos, es una oportunidad para crecer.', autor: 'Kobe Bryant' },
+    { text: 'La mentalidad Mamba es intentar ser lo mejor posible, todos los días.', autor: 'Kobe Bryant' },
+    { text: 'No le tengo miedo al fracaso, le tengo miedo a no intentarlo.', autor: 'Kobe Bryant' },
+    { text: 'Los grandes atletas hacen que las cosas grandes parezcan algo normal.', autor: 'LeBron James' },
+    { text: 'No puedes tener miedo de fallar si de verdad querés ser bueno.', autor: 'Kareem Abdul-Jabbar' },
+    { text: 'Un campeón se define por su capacidad de superar la adversidad.', autor: 'Michael Jordan' },
+    { text: 'El límite es tu propia mente, nada más.', autor: 'Manu Ginóbili' },
+    { text: 'El básquet es como la vida: hay que confiar en el equipo.', autor: 'Gregg Popovich' },
+    { text: 'No juegues contra el rival, jugá contra vos mismo.', autor: 'Emanuel Ginóbili' },
+    { text: 'Prepararse es la clave del éxito.', autor: 'Alexander Wolff' },
+    { text: 'El esfuerzo entre todos es lo que hace ganar un partido.', autor: 'Magic Johnson' },
+    { text: 'La dedicación que ponés fuera de la cancha, se nota adentro.', autor: 'Tim Duncan' },
+    { text: 'Ganar no lo es todo, pero querer ganar sí.', autor: 'Vince Lombardi' },
+    { text: 'Un equipo unido es más fuerte que cualquier individualidad.', autor: 'Steve Kerr' },
+    { text: 'Flota como una mariposa, pica como una abeja.', autor: 'Muhammad Ali' },
+    { text: 'No cuentes los días, hacé que los días cuenten.', autor: 'Muhammad Ali' },
+    { text: 'La duda mata más sueños que el fracaso.', autor: 'Suzy Kassem' },
+    { text: 'El dolor que sentís hoy es la fuerza que vas a sentir mañana.', autor: 'Arnold Schwarzenegger' },
+    { text: 'No se trata de cuánto te golpean, sino de cuánto podés aguantar y seguir avanzando.', autor: 'Rocky Balboa' },
+    { text: 'Nunca renuncies a un sueño solo por el tiempo que te va a llevar.', autor: 'Earl Nightingale' },
+    { text: 'El éxito no es definitivo, el fracaso no es fatal: lo que cuenta es el coraje de seguir.', autor: 'Winston Churchill' },
+    { text: 'La suerte favorece a los que se preparan.', autor: 'Louis Pasteur' },
+    { text: 'Cuando estés cansado de entrenar, pensá que en algún lado tu rival también entrena.', autor: 'Cristiano Ronaldo' },
+    { text: 'No sueñes con ganar, entrená para ganar.', autor: 'Cristiano Ronaldo' },
+    { text: 'El fútbol se juega con la cabeza, las piernas son solo herramientas.', autor: 'Johan Cruyff' },
+    { text: 'Cada obstáculo es una oportunidad de mejorar.', autor: 'Lionel Messi' },
+    { text: 'No hay que tener miedo a fallar, hay que tener miedo a no intentarlo.', autor: 'Lionel Messi' },
+    { text: 'Yo nací para jugar al fútbol, como el pájaro nace para volar.', autor: 'Diego Maradona' },
+    { text: 'La pelota no se mancha, pero el que la toca con ganas la hace brillar.', autor: 'Diego Maradona' },
+    { text: 'El talento sin trabajo no sirve para nada.', autor: 'Serena Williams' },
+    { text: 'Nunca dejes que el miedo a perder sea más grande que la ilusión de ganar.', autor: 'Serena Williams' },
+    { text: 'Un campeón se muestra en la forma en que se levanta después de caer.', autor: 'Serena Williams' },
+    { text: 'La disciplina es el puente entre las metas y los logros.', autor: 'Jim Rohn' },
+    { text: 'No importa cuántas veces te caigas, sino cuántas veces te levantás.', autor: 'Vince Lombardi' },
+    { text: 'El trabajo duro vence al talento cuando el talento no trabaja duro.', autor: 'Tim Notke' },
+    { text: 'Un equipo que confía entre sí es capaz de lo imposible.', autor: 'Phil Jackson' },
+    { text: 'La actitud es una pequeña cosa que hace una gran diferencia.', autor: 'Winston Churchill' },
+    { text: 'El esfuerzo de hoy es la victoria de mañana.', autor: 'Usain Bolt' },
+    { text: 'No corrás para llegar primero, corré para superarte a vos mismo.', autor: 'Usain Bolt' },
+    { text: 'El cuerpo aguanta hasta que la mente se lo permite.', autor: 'Novak Djokovic' },
+    { text: 'La derrota es solo información, no una identidad.', autor: 'Rafael Nadal' },
+    { text: 'Siempre voy a seguir intentando ser mejor de lo que fui ayer.', autor: 'Rafael Nadal' },
+    { text: 'La victoria pertenece a los más perseverantes.', autor: 'Napoleón Bonaparte' },
+    { text: 'Un buen equipo se nota cuando las cosas se complican, no cuando van bien.', autor: 'Marcelo Bielsa' },
+    { text: 'El que no arriesga, no cruza el río.', autor: 'Refrán popular' },
+    { text: 'La grandeza empieza justo donde termina la zona de confort.', autor: 'Robin Sharma' },
+    { text: 'No hay atajos para llegar a ningún lugar que valga la pena.', autor: 'Beverly Sills' },
+    { text: 'El único límite para nuestros logros de mañana son las dudas de hoy.', autor: 'Franklin D. Roosevelt' },
+    { text: 'Cree que podés y ya estás a mitad de camino.', autor: 'Theodore Roosevelt' },
+    { text: 'Las oportunidades no pasan, las creás vos con el trabajo diario.', autor: 'Chris Grosser' },
+    { text: 'No se trata de ser el mejor, se trata de ser mejor que ayer.', autor: 'Anónimo' },
+    { text: 'El equipo que suda junto, gana junto.', autor: 'Pat Riley' },
+    { text: 'Cuando el trabajo, la dedicación y la disciplina se combinan, algo especial pasa.', autor: 'LeBron James' },
+    { text: 'Un sueño no se hace realidad por arte de magia, hace falta sudor y determinación.', autor: 'Colin Powell' },
+    { text: 'La confianza se construye entrenando cuando nadie te está mirando.', autor: 'Michael Jordan' },
+    { text: 'No hay victorias fáciles cuando el rival también quiere ganar.', autor: 'Julio Velasco' },
+    { text: 'El grupo siempre va a llegar más lejos que el individuo solo.', autor: 'Julio Velasco' },
+    { text: 'El liderazgo es hacer que un grupo de personas crea en algo más grande que ellos mismos.', autor: 'Gregg Popovich' },
+    { text: 'No busques el aplauso, buscá la mejora.', autor: 'Kobe Bryant' }
+  ];
+  function dailyQuote() {
+    const start = new Date(new Date().getFullYear(), 0, 0);
+    const diff = new Date() - start;
+    const dayOfYear = Math.floor(diff / 86400000);
+    const q = QUOTES[dayOfYear % QUOTES.length];
+    return '"' + q.text + '" — ' + q.autor;
+  }
+
+  /* ---------- storage ----------
+     Datos compartidos del grupo -> API de Google Sheets (Apps Script), una tabla
+     con columnas reales por cada tipo de dato.
+     Identidad personal ("quién sos vos") -> localStorage de tu navegador. */
+
+  // 1) PEGÁ ACÁ la URL de tu Apps Script (la que termina en /exec)
+  const API_URL = 'https://script.google.com/macros/s/AKfycbwv2aSlkLyk07PvKFOyWDpdSGIWBgv7-nvPC0__fjcn0JKT3f7ZTqjYtjk-C-YgMWOyjg/exec';
+  // 2) Tiene que ser la MISMA palabra que pusiste en TOKEN dentro de Code.gs
+  const API_TOKEN = 'patriotas-2026';
+
+  async function listTable(tableId) {
+    try {
+      const res = await fetch(API_URL + '?action=list&table=' + encodeURIComponent(tableId) + '&token=' + encodeURIComponent(API_TOKEN));
+      const data = await res.json();
+      return data.rows || [];
+    } catch (e) { console.error('listTable failed', tableId, e); return []; }
+  }
+  async function upsertRow(tableId, row) {
+    try {
+      await fetch(API_URL, {
+        method: 'POST',
+        body: JSON.stringify({ action: 'upsert', table: tableId, row: row, token: API_TOKEN })
+      });
+    } catch (e) { console.error('upsertRow failed', tableId, e); }
+  }
+  async function deleteRow(tableId, key) {
+    try {
+      await fetch(API_URL, {
+        method: 'POST',
+        body: JSON.stringify({ action: 'delete', table: tableId, key: key, token: API_TOKEN })
+      });
+    } catch (e) { console.error('deleteRow failed', tableId, e); }
+  }
+  function getPersonal(key, fallback) {
+    try {
+      const v = localStorage.getItem('patriotas:' + key);
+      return v ? JSON.parse(v) : fallback;
+    } catch (e) { return fallback; }
+  }
+  function setPersonal(key, value) {
+    try { localStorage.setItem('patriotas:' + key, JSON.stringify(value)); }
+    catch (e) { console.error('setPersonal failed', key, e); }
+  }
+
+  /* ---------- state ---------- */
+  const S = {
+    loading: true,
+    tab: 'avisos',
+    members: [], role: '', yo: '', jugadores: {},
+    avisos: [], gastos: [], eventos: [],
+    cuotaTipos: {}, cuotaElecciones: {}, cuotaPagos: {}, cuotaExtra: {}, gastosClub: [], ingresosClub: [],
+    saldoBanco: 0, adminPin: '1234',
+    month: monthKey()
+  };
+  /* transient ui state, not persisted, survives re-render but not saved */
+  const UI = {
+    membersOpen: false,
+    avisoForm: false,
+    gastoEventoId: null,     // which evento is open in Gastos tab
+    showCreateEvento: false,
+    showGastoForm: false,
+    gastoForm: null,         // {pagador, participantes}
+    cuotaEditingTipo: null,  // 'entrenamiento' | 'fullPatriota' | 'soloTBL'
+    cuotaSubTab: 'estado',   // 'estado' | 'gastosClub' | 'ingresosClub'
+    showGastoClubForm: false,
+    jugadorForm: null,       // null | {editing: identificador|null, nombre, apellido, numero, mail, aliasBanco, telefono}
+    bulkForm: false,
+    cuotaExtraForm: null,    // null | { member }
+    editingSaldoBanco: false,
+    loginStep: 'home',       // 'home' | 'jugadorList' | 'adminPin' | 'adminList' | 'adminCreateFirst'
+    loginError: '',
+    changingPin: false
+  };
+
+  async function loadData() {
+    const [jgRows, avRows, evRows, gaRows, ccRows, cuRows, gcRows, icRows, cfRows] = await Promise.all([
+      listTable('jugadores'),
+      listTable('avisos'),
+      listTable('eventos'),
+      listTable('gastos'),
+      listTable('cuotaConfig'),
+      listTable('cuotas'),
+      listTable('gastosClub'),
+      listTable('ingresosClub'),
+      listTable('config')
+    ]);
+
+    // Jugadores -> members / jugadores map (orden = orden de filas)
+    S.jugadores = {}; S.members = [];
+    jgRows.forEach(function (j) {
+      S.jugadores[j.identificador] = j;
+      S.members.push(j.identificador);
+    });
+
+    // Avisos (más nuevo primero)
+    S.avisos = avRows.map(function (r) {
+      return { id: Number(r.id), text: r.texto, autor: r.autor, ts: Number(r.id) };
+    }).sort(function (a, b) { return b.ts - a.ts; });
+
+    // Eventos
+    S.eventos = evRows.map(function (r) {
+      let acompanantes = {};
+      try { acompanantes = r.acompanantes ? JSON.parse(r.acompanantes) : {}; } catch (e) { acompanantes = {}; }
+      return { id: Number(r.id), nombre: r.nombre, fecha: r.fecha, participantes: r.participantes ? String(r.participantes).split('|') : [], acompanantes: acompanantes, ts: Number(r.id) };
+    }).sort(function (a, b) { return b.ts - a.ts; });
+
+    // Gastos (de las juntadas)
+    S.gastos = gaRows.map(function (r) {
+      return {
+        id: Number(r.id), eventoId: Number(r.eventoId), desc: r.descripcion, monto: Number(r.monto),
+        pagador: r.pagador, participantes: r.participantes ? String(r.participantes).split('|') : [], ts: Number(r.id)
+      };
+    }).sort(function (a, b) { return b.ts - a.ts; });
+
+    // Precios de cuota por mes
+    S.cuotaTipos = {};
+    ccRows.forEach(function (r) {
+      S.cuotaTipos[r.mes] = { entrenamiento: Number(r.entrenamiento) || 0, fullPatriota: Number(r.fullPatriota) || 0, soloTBL: Number(r.soloTBL) || 0 };
+    });
+
+    // Cuotas (una fila por mes+jugador) -> derivar elecciones / pagos / extra
+    S.cuotaElecciones = {}; S.cuotaPagos = {}; S.cuotaExtra = {};
+    cuRows.forEach(function (r) {
+      S.cuotaElecciones[r.mes] = S.cuotaElecciones[r.mes] || {};
+      if (r.plan) S.cuotaElecciones[r.mes][r.jugador] = r.plan;
+      S.cuotaPagos[r.mes] = S.cuotaPagos[r.mes] || {};
+      S.cuotaPagos[r.mes][r.jugador] = r.pago === 'SI';
+      S.cuotaExtra[r.mes] = S.cuotaExtra[r.mes] || {};
+      S.cuotaExtra[r.mes][r.jugador] = {
+        montoCustom: (r.montoPersonalizado !== '' && r.montoPersonalizado !== null && r.montoPersonalizado !== undefined) ? Number(r.montoPersonalizado) : null,
+        nota: r.nota || ''
+      };
+    });
+
+    // Gastos del club
+    S.gastosClub = gcRows.map(function (r) {
+      return { id: Number(r.id), desc: r.descripcion, monto: Number(r.monto), fecha: r.fecha, cargadoPor: r.cargadoPor, ts: Number(r.id) };
+    }).sort(function (a, b) { return b.ts - a.ts; });
+
+    // Ingresos extras del club
+    S.ingresosClub = icRows.map(function (r) {
+      return { id: Number(r.id), desc: r.descripcion, monto: Number(r.monto), fecha: r.fecha, cargadoPor: r.cargadoPor, ts: Number(r.id) };
+    }).sort(function (a, b) { return b.ts - a.ts; });
+
+    // Config general (saldo de banco, etc)
+    S.saldoBanco = 0;
+    cfRows.forEach(function (r) {
+      if (r.key === 'saldoBanco') S.saldoBanco = Number(r.value) || 0;
+      if (r.key === 'adminPin' && r.value) S.adminPin = String(r.value);
+    });
+  }
+
+  async function loadAll() {
+    await loadData();
+    S.yo = await getPersonal('yo', '');
+    S.role = await getPersonal('role', '');
+    S.loading = false;
+    render();
+    startAutoRefresh();
+  }
+
+  function hayAlgoAbierto() {
+    const focused = document.activeElement;
+    const escribiendo = focused && (focused.tagName === 'INPUT' || focused.tagName === 'TEXTAREA');
+    return !!(
+      escribiendo || UI.showCreateEvento || UI.showGastoForm || UI.jugadorForm || UI.bulkForm ||
+      UI.cuotaExtraForm || UI.changingPin || UI.editingSaldoBanco || UI.cuotaEditingTipo
+    );
+  }
+
+  function startAutoRefresh() {
+    setInterval(async function () {
+      if (!S.yo || S.loading) return;
+      try {
+        await loadData();
+        if (!hayAlgoAbierto()) render();
+      } catch (e) { console.error('auto-refresh failed', e); }
+    }, 10000);
+  }
+
+  /* ---------- mutations ---------- */
+  function esAdminSesion() {
+    return S.role === 'admin';
+  }
+  async function saveAdminPin(pin) {
+    S.adminPin = pin;
+    await upsertRow('config', { key: 'adminPin', value: pin });
+    render();
+  }
+  async function addGastoClub(g) {
+    const row = { id: Date.now(), descripcion: g.desc, monto: g.monto, fecha: g.fecha, cargadoPor: S.yo };
+    S.gastosClub = [{ id: row.id, desc: g.desc, monto: g.monto, fecha: g.fecha, cargadoPor: S.yo, ts: row.id }].concat(S.gastosClub);
+    await upsertRow('gastosClub', row);
+    render();
+  }
+  async function removeGastoClub(id) {
+    S.gastosClub = S.gastosClub.filter(function (g) { return g.id !== id; });
+    await deleteRow('gastosClub', [id]);
+    render();
+  }
+  async function addIngresoClub(g) {
+    const row = { id: Date.now(), descripcion: g.desc, monto: g.monto, fecha: g.fecha, cargadoPor: S.yo };
+    S.ingresosClub = [{ id: row.id, desc: g.desc, monto: g.monto, fecha: g.fecha, cargadoPor: S.yo, ts: row.id }].concat(S.ingresosClub);
+    await upsertRow('ingresosClub', row);
+    render();
+  }
+  async function removeIngresoClub(id) {
+    S.ingresosClub = S.ingresosClub.filter(function (g) { return g.id !== id; });
+    await deleteRow('ingresosClub', [id]);
+    render();
+  }
+  function computeRecaudadoHistorico() {
+    let total = 0;
+    Object.keys(S.cuotaPagos).forEach(function (mes) {
+      const pagosMes = S.cuotaPagos[mes] || {};
+      const elecciones = S.cuotaElecciones[mes] || {};
+      const tipos = S.cuotaTipos[mes] || {};
+      const extraMes = S.cuotaExtra[mes] || {};
+      Object.keys(pagosMes).forEach(function (member) {
+        if (!pagosMes[member]) return;
+        const ov = extraMes[member] && extraMes[member].montoCustom;
+        const tieneOverride = ov !== null && ov !== undefined && ov !== '';
+        if (tieneOverride) { total += Number(ov); return; }
+        if (elecciones[member]) {
+          total += montoPorTipo(tipos, elecciones[member]);
+        }
+      });
+    });
+    return total;
+  }
+  async function saveSaldoBanco(valor) {
+    S.saldoBanco = valor;
+    await upsertRow('config', { key: 'saldoBanco', value: valor });
+    render();
+  }
+
+  function identificadorDe(nombre, apellido) {
+    nombre = (nombre || '').trim();
+    apellido = (apellido || '').trim();
+    return apellido ? nombre + ' ' + apellido : nombre;
+  }
+  async function addJugador(perfil) {
+    const identificador = identificadorDe(perfil.nombre, perfil.apellido);
+    if (!identificador || S.jugadores[identificador]) return;
+    const row = Object.assign({ identificador: identificador }, perfil);
+    S.jugadores = Object.assign({}, S.jugadores);
+    S.jugadores[identificador] = row;
+    S.members = S.members.concat([identificador]);
+    await upsertRow('jugadores', row);
+  }
+  async function updateJugador(identificador, patch) {
+    if (!S.jugadores[identificador]) return;
+    S.jugadores = Object.assign({}, S.jugadores);
+    S.jugadores[identificador] = Object.assign({}, S.jugadores[identificador], patch);
+    await upsertRow('jugadores', S.jugadores[identificador]);
+  }
+  async function removeMember(name) {
+    S.members = S.members.filter(function (m) { return m !== name; });
+    const wasJugador = !!S.jugadores[name];
+    S.jugadores = Object.assign({}, S.jugadores);
+    delete S.jugadores[name];
+    if (wasJugador) await deleteRow('jugadores', [name]);
+  }
+  async function chooseYo(name, role) {
+    S.yo = name;
+    S.role = role;
+    await setPersonal('yo', name);
+    await setPersonal('role', role);
+    render();
+  }
+  async function cambiarYo() {
+    S.yo = '';
+    S.role = '';
+    UI.loginStep = 'home';
+    UI.loginError = '';
+    await setPersonal('yo', '');
+    await setPersonal('role', '');
+    render();
+  }
+  async function addAviso(text) {
+    text = (text || '').trim();
+    if (!text) return;
+    const id = Date.now();
+    S.avisos = [{ id: id, text: text, autor: S.yo, ts: id }].concat(S.avisos);
+    await upsertRow('avisos', { id: id, texto: text, autor: S.yo, fecha: new Date(id).toISOString() });
+    render();
+  }
+  async function removeAviso(id) {
+    S.avisos = S.avisos.filter(function (a) { return a.id !== id; });
+    await deleteRow('avisos', [id]);
+    render();
+  }
+  async function addEvento(e) {
+    if (!e.nombre.trim() || !e.participantes.length) return;
+    const id = Date.now();
+    const acompanantes = e.acompanantes || {};
+    S.eventos = [{ id: id, nombre: e.nombre, fecha: e.fecha, participantes: e.participantes, acompanantes: acompanantes, ts: id }].concat(S.eventos);
+    await upsertRow('eventos', { id: id, nombre: e.nombre, fecha: e.fecha, participantes: e.participantes.join('|'), acompanantes: JSON.stringify(acompanantes) });
+    render();
+  }
+  async function setAcompanantes(eventoId, jugador, cantidad) {
+    const evento = S.eventos.find(function (e) { return e.id === eventoId; });
+    if (!evento) return;
+    evento.acompanantes = Object.assign({}, evento.acompanantes || {});
+    if (cantidad > 0) evento.acompanantes[jugador] = cantidad;
+    else delete evento.acompanantes[jugador];
+    await upsertRow('eventos', { id: evento.id, nombre: evento.nombre, fecha: evento.fecha, participantes: evento.participantes.join('|'), acompanantes: JSON.stringify(evento.acompanantes) });
+    render();
+  }
+  async function removeEvento(id) {
+    S.eventos = S.eventos.filter(function (e) { return e.id !== id; });
+    await deleteRow('eventos', [id]);
+    const idsGastos = S.gastos.filter(function (g) { return g.eventoId === id; }).map(function (g) { return g.id; });
+    S.gastos = S.gastos.filter(function (g) { return g.eventoId !== id; });
+    for (const gid of idsGastos) { await deleteRow('gastos', [gid]); }
+    render();
+  }
+  async function addGasto(g) {
+    const id = Date.now();
+    S.gastos = [{ id: id, eventoId: g.eventoId, desc: g.desc, monto: g.monto, pagador: g.pagador, participantes: g.participantes, ts: id }].concat(S.gastos);
+    await upsertRow('gastos', { id: id, eventoId: g.eventoId, descripcion: g.desc, monto: g.monto, pagador: g.pagador, participantes: g.participantes.join('|'), fecha: new Date(id).toISOString() });
+    render();
+  }
+  async function removeGasto(id) {
+    S.gastos = S.gastos.filter(function (g) { return g.id !== id; });
+    await deleteRow('gastos', [id]);
+    render();
+  }
+  async function saveCuotaTipo(mes, tipo, valor) {
+    S.cuotaTipos = Object.assign({}, S.cuotaTipos);
+    S.cuotaTipos[mes] = Object.assign({ entrenamiento: 0, fullPatriota: 0, soloTBL: 0 }, S.cuotaTipos[mes] || {});
+    S.cuotaTipos[mes][tipo] = valor;
+    await upsertRow('cuotaConfig', { mes: mes, entrenamiento: S.cuotaTipos[mes].entrenamiento, fullPatriota: S.cuotaTipos[mes].fullPatriota, soloTBL: S.cuotaTipos[mes].soloTBL });
+    render();
+  }
+  async function syncCuotaRow(mes, miembro) {
+    const plan = (S.cuotaElecciones[mes] && S.cuotaElecciones[mes][miembro]) || '';
+    const pago = (S.cuotaPagos[mes] && S.cuotaPagos[mes][miembro]) ? 'SI' : '';
+    const extra = (S.cuotaExtra[mes] && S.cuotaExtra[mes][miembro]) || {};
+    await upsertRow('cuotas', {
+      mes: mes, jugador: miembro, plan: plan, pago: pago,
+      montoPersonalizado: (extra.montoCustom !== null && extra.montoCustom !== undefined) ? extra.montoCustom : '',
+      nota: extra.nota || ''
+    });
+  }
+  async function elegirCuota(mes, miembro, tipo) {
+    S.cuotaElecciones = Object.assign({}, S.cuotaElecciones);
+    S.cuotaElecciones[mes] = Object.assign({}, S.cuotaElecciones[mes] || {});
+    S.cuotaElecciones[mes][miembro] = tipo;
+    await syncCuotaRow(mes, miembro);
+    render();
+  }
+  async function togglePago(mes, miembro) {
+    S.cuotaPagos = Object.assign({}, S.cuotaPagos);
+    S.cuotaPagos[mes] = Object.assign({}, S.cuotaPagos[mes] || {});
+    S.cuotaPagos[mes][miembro] = !S.cuotaPagos[mes][miembro];
+    await syncCuotaRow(mes, miembro);
+    render();
+  }
+  async function saveCuotaExtra(mes, miembro, patch) {
+    S.cuotaExtra = Object.assign({}, S.cuotaExtra);
+    S.cuotaExtra[mes] = Object.assign({}, S.cuotaExtra[mes] || {});
+    S.cuotaExtra[mes][miembro] = Object.assign({ montoCustom: null, nota: '' }, S.cuotaExtra[mes][miembro] || {}, patch);
+    await syncCuotaRow(mes, miembro);
+    UI.cuotaExtraForm = null;
+    render();
+  }
+
+  /* ---------- render ---------- */
+  function render() {
+    if (S.loading) {
+      root.innerHTML = '<div class="flex items-center justify-center text-sm font-medium" style="min-height:100vh">Cargando...</div>';
+      return;
+    }
+    if (!S.yo) {
+      root.innerHTML = renderOnboarding();
+      bindOnboarding();
+      return;
+    }
+    root.innerHTML = renderApp();
+    bindApp();
+  }
+
+  function renderLogoHeader(subtitle) {
+    return (
+      '<img src="logo.png" alt="Patriotas" style="width:88px;height:88px;object-fit:contain;margin:0 auto 8px">' +
+      '<h1 class="display text-3xl font-semibold mb-1">Patriotas</h1>' +
+      (subtitle ? '<p class="text-sm opacity-70 mb-6">' + subtitle + '</p>' : '')
+    );
+  }
+
+  function renderOnboarding() {
+    let body = '';
+
+    if (UI.loginStep === 'jugadorList') {
+      body = renderNameList('jugador');
+    } else if (UI.loginStep === 'adminPin') {
+      body = (
+        '<p class="text-sm opacity-70 mb-4">Ingresá el PIN de 4 dígitos del Admin.</p>' +
+        '<input id="pin-input" class="field mono text-center" style="font-size:24px;letter-spacing:6px" maxlength="4" inputmode="numeric" placeholder="••••">' +
+        (UI.loginError ? '<p class="text-xs mt-2" style="color:var(--neg)">' + esc(UI.loginError) + '</p>' : '') +
+        '<button id="btn-pin-enter" class="btn-primary w-full mt-3" style="padding:10px 16px">Ingresar</button>' +
+        '<button id="btn-pin-back" class="w-full mt-2 text-xs opacity-60 py-2">Volver</button>'
+      );
+    } else if (UI.loginStep === 'adminList') {
+      body = renderNameList('admin');
+    } else if (UI.loginStep === 'adminCreateFirst') {
+      body = (
+        '<p class="text-xs opacity-60 mb-2">Todavía no hay jugadores cargados. Creá el primero para arrancar.</p>' +
+        '<div class="flex gap-2 mb-2">' +
+          '<input id="ob-nombre" class="field" placeholder="Nombre" style="flex:1">' +
+          '<input id="ob-apellido" class="field" placeholder="Apellido" style="flex:1">' +
+        '</div>' +
+        '<input id="ob-numero" class="field mono" placeholder="Número de camiseta" inputmode="numeric">' +
+        '<button id="ob-enter" class="btn-primary w-full mt-2" style="padding:10px 16px">Crear y entrar como Admin</button>'
+      );
+    } else {
+      body = (
+        '<button id="btn-go-jugador" class="w-full py-3 rounded-xl text-sm font-semibold mb-3" style="background:var(--celeste);color:#fff">Ingresar como Jugador</button>' +
+        '<button id="btn-go-admin" class="w-full py-3 rounded-xl text-sm font-semibold border" style="border-color:var(--ink)">Ingresar como Administrador</button>'
+      );
+    }
+
+    return (
+      '<div class="flex items-center justify-center" style="min-height:100vh;padding:0 24px">' +
+        '<div style="max-width:420px;width:100%" class="text-center">' +
+          renderLogoHeader(UI.loginStep === 'home' ? '¿Cómo querés entrar?' : '') +
+          '<div class="text-left">' + body + '</div>' +
+        '</div>' +
+      '</div>'
+    );
+  }
+
+  function renderNameList(role) {
+    if (S.members.length === 0) {
+      return '<p class="text-sm opacity-60 mb-4 text-center">Todavía no hay jugadores cargados.</p>' +
+        '<button id="btn-name-back" class="w-full text-xs opacity-60 py-2">Volver</button>';
+    }
+    const rows = S.members.map(function (m) {
+      const num = S.jugadores[m] && S.jugadores[m].numero;
+      return (
+        '<button data-choose-name="' + esc(m) + '" class="w-full flex items-center gap-2 px-3 py-25 rounded-xl border mb-15 text-left">' +
+          (num ? '<span class="mono font-semibold text-sm" style="color:var(--celeste);width:28px">#' + esc(num) + '</span>' : '<span style="width:28px"></span>') +
+          '<span class="text-sm font-medium">' + esc(m) + '</span>' +
+        '</button>'
+      );
+    }).join('');
+    return (
+      '<p class="text-xs opacity-60 mb-3">Elegí tu nombre de la lista.</p>' +
+      rows +
+      '<button id="btn-name-back" class="w-full text-xs opacity-60 py-2 mt-1">Volver</button>'
+    );
+  }
+
+  function bindOnboarding() {
+    const goJugador = document.getElementById('btn-go-jugador');
+    if (goJugador) goJugador.addEventListener('click', function () { UI.loginStep = 'jugadorList'; render(); });
+
+    const goAdmin = document.getElementById('btn-go-admin');
+    if (goAdmin) goAdmin.addEventListener('click', function () { UI.loginStep = 'adminPin'; UI.loginError = ''; render(); });
+
+    const nameBack = document.getElementById('btn-name-back');
+    if (nameBack) nameBack.addEventListener('click', function () { UI.loginStep = 'home'; render(); });
+
+    root.querySelectorAll('[data-choose-name]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        const name = btn.getAttribute('data-choose-name');
+        const role = UI.loginStep === 'adminList' ? 'admin' : 'jugador';
+        chooseYo(name, role);
+      });
+    });
+
+    const pinBack = document.getElementById('btn-pin-back');
+    if (pinBack) pinBack.addEventListener('click', function () { UI.loginStep = 'home'; UI.loginError = ''; render(); });
+
+    const pinEnter = document.getElementById('btn-pin-enter');
+    if (pinEnter) pinEnter.addEventListener('click', function () {
+      const pin = document.getElementById('pin-input').value.trim();
+      if (pin !== S.adminPin) {
+        UI.loginError = 'PIN incorrecto.';
+        render();
+        return;
+      }
+      UI.loginError = '';
+      UI.loginStep = S.members.length === 0 ? 'adminCreateFirst' : 'adminList';
+      render();
+    });
+
+    const enter = document.getElementById('ob-enter');
+    if (enter) enter.addEventListener('click', async function () {
+      const nombre = document.getElementById('ob-nombre').value.trim();
+      const apellido = document.getElementById('ob-apellido').value.trim();
+      const numero = document.getElementById('ob-numero').value.trim();
+      if (!nombre) return;
+      const perfil = { nombre: nombre, apellido: apellido, numero: numero, mail: '', aliasBanco: '', telefono: '' };
+      await addJugador(perfil);
+      chooseYo(identificadorDe(nombre, apellido), 'admin');
+    });
+  }
+
+  const TABS = [
+    { id: 'avisos', label: 'Avisos', icon: 'megaphone', accent: 'var(--celeste)' },
+    { id: 'gastos', label: 'Quién paga a quién', icon: 'wallet', accent: 'var(--ink)' },
+    { id: 'cuotas', label: 'Cuota', icon: 'calendar', accent: 'var(--celeste)' }
+  ];
+
+  function renderApp() {
+    const sesionBadge = esAdminSesion() ? ' <span class="font-semibold" style="color:var(--celeste)">· sesión Admin</span>' : '';
+    const tabsHtml = TABS.map(function (t) {
+      const active = t.id === S.tab;
+      return (
+        '<button data-tab="' + t.id + '" class="flex-1 flex items-center justify-center gap-2 py-3 text-sm font-medium" ' +
+          'style="background:' + (active ? '#fff' : 'transparent') + ';color:' + (active ? t.accent : 'var(--ink)') + ';opacity:' + (active ? 1 : .55) + ';border-radius:14px 14px 0 0;border-bottom:3px solid ' + (active ? t.accent : 'transparent') + '">' +
+          icon(t.icon, 16) + t.label +
+        '</button>'
+      );
+    }).join('');
+
+    let content = '';
+    if (S.tab === 'avisos') content = renderAvisos();
+    else if (S.tab === 'gastos') content = renderGastos();
+    else content = renderCuotas();
+
+    return (
+      '<header class="px-5 pt-8 pb-4 text-center">' +
+        '<img src="logo.png" alt="Patriotas" style="width:64px;height:64px;object-fit:contain;margin:0 auto 8px">' +
+        '<h1 class="display text-3xl font-semibold tracking-tight" style="text-transform:uppercase">Patriotas</h1>' +
+        '<p class="text-sm opacity-60 mt-1">hola, ' + esc(S.yo) + sesionBadge + ' <button id="btn-cambiar" class="underline opacity-70">(cambiar)</button></p>' +
+        '<p class="text-sm font-medium mt-2" style="color:var(--celeste)">' + dailyQuote() + '</p>' +
+      '</header>' +
+      '<nav class="flex sticky" style="padding:0 12px;gap:4px;background:var(--bg)">' + tabsHtml + '</nav>' +
+      '<main class="px-4 pt-5" style="background:#fff;min-height:60vh">' + content + '</main>' +
+      renderMembersBar()
+    );
+  }
+
+  function renderMembersBar() {
+    let inner = '';
+    const soyAdmin = esAdminSesion();
+    if (UI.membersOpen) {
+      const chips = S.members.map(function (m) {
+        const num = S.jugadores[m] && S.jugadores[m].numero;
+        return (
+          '<span class="flex items-center gap-1 px-25 py-1 rounded-full text-xs" style="background:rgba(0,0,0,.05)">' +
+            (num ? '<span class="mono font-semibold" style="color:var(--celeste)">#' + esc(num) + '</span>' : '') + ' ' + esc(m) +
+            (soyAdmin ? '<button data-edit-jugador="' + esc(m) + '" class="opacity-60" title="editar datos" style="margin-left:2px">' + icon('edit', 11) + '</button>' : '') +
+            (soyAdmin ? '<button data-remove-member="' + esc(m) + '" class="opacity-50">' + icon('x', 11) + '</button>' : '') +
+          '</span>'
+        );
+      }).join('');
+
+      let formBlock = '';
+      if (soyAdmin) {
+        if (UI.changingPin) {
+          formBlock = (
+            '<div class="rounded-xl border p-3 space-y-25" style="background:#fff">' +
+              '<p class="text-xs opacity-60">Nuevo PIN de 4 dígitos</p>' +
+              '<input id="new-pin" class="field mono text-center" style="font-size:20px;letter-spacing:5px" maxlength="4" inputmode="numeric" placeholder="••••">' +
+              '<div class="flex gap-2">' +
+                '<button id="btn-cancel-pin" class="flex-1 py-2 rounded-lg text-sm border">Cancelar</button>' +
+                '<button id="btn-save-pin" class="flex-1 py-2 rounded-lg text-sm font-semibold" style="background:var(--ink);color:#fff">Guardar</button>' +
+              '</div>' +
+            '</div>'
+          );
+        } else if (UI.bulkForm) {
+          formBlock = renderBulkForm();
+        } else if (UI.jugadorForm) {
+          formBlock = renderJugadorForm();
+        } else {
+          formBlock = (
+            '<div class="flex flex-wrap gap-2">' +
+              '<button id="btn-new-jugador" class="flex items-center gap-1 text-xs font-semibold" style="color:var(--ink)">' + icon('plus', 14) + 'Nuevo jugador</button>' +
+              '<button id="btn-bulk-jugadores" class="flex items-center gap-1 text-xs font-semibold opacity-70">' + icon('users', 13) + 'Cargar varios</button>' +
+              '<button id="btn-change-pin" class="flex items-center gap-1 text-xs font-semibold opacity-70">' + icon('edit', 12) + 'Cambiar PIN</button>' +
+            '</div>'
+          );
+        }
+      } else {
+        formBlock = '<p class="text-xs opacity-50">Solo el Admin puede sumar, editar o sacar integrantes.</p>';
+      }
+
+      inner = (
+        '<div class="px-4 pb-3 pt-2" style="border-top:1px solid rgba(0,0,0,.08);max-height:60vh;overflow-y:auto">' +
+          '<div class="flex flex-wrap gap-2 mb-2">' + chips + '</div>' +
+          formBlock +
+        '</div>'
+      );
+    }
+    return (
+      '<div style="position:fixed;left:0;right:0;bottom:0;background:var(--bg)">' +
+        inner +
+        '<button id="btn-toggle-members" class="w-full flex items-center justify-center gap-2 py-25 text-xs font-medium opacity-70">' +
+          icon('users', 13) + S.members.length + ' en el grupo' +
+        '</button>' +
+      '</div>'
+    );
+  }
+
+  function renderBulkForm() {
+    return (
+      '<div class="rounded-xl border p-3 space-y-25" style="background:#fff">' +
+        '<p class="text-xs opacity-60">Un jugador por línea: Nombre Apellido</p>' +
+        '<textarea id="bulk-textarea" class="field" rows="6" placeholder="Nicolas Perez\nLeonardo Paya\nSantiago Banaudi"></textarea>' +
+        '<div class="flex gap-2">' +
+          '<button id="btn-cancel-bulk" class="flex-1 py-2 rounded-lg text-sm border">Cancelar</button>' +
+          '<button id="btn-save-bulk" class="flex-1 py-2 rounded-lg text-sm font-semibold" style="background:var(--ink);color:#fff">Cargar todos</button>' +
+        '</div>' +
+      '</div>'
+    );
+  }
+
+  function renderJugadorForm() {
+    const f = UI.jugadorForm;
+    const editing = !!f.editing;
+    return (
+      '<div class="rounded-xl border p-3 space-y-25" style="background:#fff">' +
+        (editing
+          ? '<p class="text-sm font-semibold">' + esc(f.editing) + '</p>'
+          : '<div class="flex gap-2"><input id="jf-nombre" class="field" placeholder="Nombre" value="' + esc(f.nombre) + '" style="flex:1"><input id="jf-apellido" class="field" placeholder="Apellido" value="' + esc(f.apellido) + '" style="flex:1"></div>'
+        ) +
+        '<input id="jf-numero" class="field mono" placeholder="Número de camiseta" value="' + esc(f.numero) + '" inputmode="numeric">' +
+        '<input id="jf-mail" class="field" placeholder="Mail" value="' + esc(f.mail) + '" type="email">' +
+        '<input id="jf-alias" class="field" placeholder="Alias bancario" value="' + esc(f.aliasBanco) + '">' +
+        '<input id="jf-telefono" class="field" placeholder="Teléfono de contacto" value="' + esc(f.telefono) + '">' +
+        '<input id="jf-dni" class="field mono" placeholder="DNI" value="' + esc(f.dni) + '" inputmode="numeric">' +
+        '<div>' +
+          '<p class="text-xs opacity-60 mb-1">Fecha de nacimiento</p>' +
+          '<input id="jf-fechaNacimiento" type="date" class="field" value="' + esc(f.fechaNacimiento) + '">' +
+        '</div>' +
+        '<div class="flex gap-2 pt-1">' +
+          '<button id="btn-cancel-jugador" class="flex-1 py-2 rounded-lg text-sm border">Cancelar</button>' +
+          '<button id="btn-save-jugador" class="flex-1 py-2 rounded-lg text-sm font-semibold" style="background:var(--ink);color:#fff">Guardar</button>' +
+        '</div>' +
+      '</div>'
+    );
+  }
+
+  /* ---------- avisos ---------- */
+  function renderAvisos() {
+    const list = S.avisos.length ? S.avisos.map(function (a) {
+      const mine = a.autor === S.yo;
+      return (
+        '<div class="p-3 rounded-xl relative" style="background:var(--card)">' +
+          '<p class="text-sm" style="padding-right:24px">' + esc(a.text) + '</p>' +
+          '<div class="flex items-center justify-between mt-2">' +
+            '<span class="text-xs font-semibold" style="color:var(--celeste)">' + esc(a.autor) + '</span>' +
+            '<span class="text-xs opacity-50">' + new Date(a.ts).toLocaleDateString('es-AR') + '</span>' +
+          '</div>' +
+          (mine ? '<button data-remove-aviso="' + a.id + '" class="opacity-40" style="position:absolute;top:12px;right:12px">' + icon('x', 14) + '</button>' : '') +
+        '</div>'
+      );
+    }).join('<div style="height:12px"></div>') : '<p class="text-sm opacity-45 text-center" style="padding:32px 0">Todavía no hay avisos. Sé el primero en contar algo.</p>';
+
+    return (
+      '<div class="pb-4">' +
+        '<div class="flex gap-2 mb-5">' +
+          '<input id="aviso-text" class="field" placeholder="Contá algo al grupo..." style="flex:1">' +
+          '<button id="btn-add-aviso" class="btn-primary px-4" style="display:flex;align-items:center;justify-content:center">' + icon('plus', 18) + '</button>' +
+        '</div>' +
+        list +
+      '</div>'
+    );
+  }
+  function bindAvisos() {
+    const input = document.getElementById('aviso-text');
+    document.getElementById('btn-add-aviso').addEventListener('click', function () {
+      addAviso(input.value); input.value = '';
+    });
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') { addAviso(input.value); input.value = ''; }
+    });
+    root.querySelectorAll('[data-remove-aviso]').forEach(function (btn) {
+      btn.addEventListener('click', function () { removeAviso(Number(btn.getAttribute('data-remove-aviso'))); });
+    });
+  }
+
+  /* ---------- gastos (eventos) ---------- */
+  function renderGastos() {
+    if (UI.gastoEventoId) {
+      const evento = S.eventos.find(function (e) { return e.id === UI.gastoEventoId; });
+      if (evento) return renderEventoDetail(evento);
+      UI.gastoEventoId = null;
+    }
+    const balances = computeBalances(S.gastos, S.members, true);
+    const transacciones = simplifyDebts(balances);
+    const myBalance = balances[S.yo] || 0;
+
+    const txHtml = transacciones.length ? (
+      '<div class="mb-5">' +
+        '<p class="text-xs font-semibold opacity-50 mb-2" style="text-transform:uppercase;letter-spacing:.03em">Para saldar cuentas</p>' +
+        '<div class="space-y-15">' +
+          transacciones.map(function (t) {
+            return (
+              '<div class="flex items-center gap-2 text-sm px-3 py-2 rounded-lg" style="background:var(--card)">' +
+                '<span class="font-medium">' + esc(t.from) + '</span>' + icon('arrowRight', 13, 'style="opacity:.4"') +
+                '<span class="font-medium">' + esc(t.to) + aliasTag(t.to) + '</span>' +
+                '<span class="mono ml-auto font-semibold" style="color:var(--ink)">' + fmt(t.amt) + '</span>' +
+              '</div>'
+            );
+          }).join('') +
+        '</div>' +
+      '</div>'
+    ) : '';
+
+    const createForm = UI.showCreateEvento ? renderCreateEvento() : '';
+    const eventosList = S.eventos.length ? S.eventos.map(function (e) {
+      const gastosEvento = S.gastos.filter(function (g) { return g.eventoId === e.id; });
+      const total = gastosEvento.reduce(function (s, g) { return s + g.monto; }, 0);
+      return (
+        '<button data-open-evento="' + e.id + '" class="w-full text-left p-3 rounded-xl border flex items-center gap-3">' +
+          '<div class="flex-1">' +
+            '<p class="text-sm font-semibold">' + esc(e.nombre) + '</p>' +
+            '<p class="text-xs opacity-55">' + new Date(e.fecha).toLocaleDateString('es-AR', { day: 'numeric', month: 'short' }) + ' · ' + e.participantes.length + ' personas · ' + gastosEvento.length + ' gasto' + (gastosEvento.length === 1 ? '' : 's') + '</p>' +
+          '</div>' +
+          '<span class="mono text-sm font-semibold">' + fmt(total) + '</span>' +
+        '</button>'
+      );
+    }).join('<div style="height:8px"></div>') : (!UI.showCreateEvento ? '<p class="text-sm opacity-45 text-center" style="padding:32px 0">Todavía no armaste ninguna juntada. Creá una para empezar a cargar gastos.</p>' : '');
+
+    return (
+      '<div class="pb-4">' +
+        '<div class="rounded-xl p-4 mb-5" style="background:var(--ink);color:#fff;background-image:repeating-linear-gradient(135deg, rgba(255,255,255,0.03) 0 2px, transparent 2px 8px)">' +
+          '<p class="text-xs opacity-70 mb-1">tu balance general</p>' +
+          '<p class="mono text-2xl font-semibold">' + (myBalance >= 0 ? '+' : '') + fmt(myBalance) + '</p>' +
+          '<p class="text-xs opacity-60 mt-1">' + (myBalance >= 0 ? 'te deben en total' : 'debés en total') + '</p>' +
+        '</div>' +
+        txHtml +
+        '<div class="flex items-center justify-between mb-2">' +
+          '<p class="text-xs font-semibold opacity-50" style="text-transform:uppercase;letter-spacing:.03em">Juntadas</p>' +
+          (!UI.showCreateEvento ? '<button id="btn-show-create-evento" class="flex items-center gap-1 text-xs font-semibold" style="color:var(--ink)">' + icon('plus', 14) + 'Nueva</button>' : '') +
+        '</div>' +
+        createForm +
+        '<div class="space-y-2">' + eventosList + '</div>' +
+      '</div>'
+    );
+  }
+
+  function renderCreateEvento() {
+    const rows = S.members.map(function (m) {
+      return (
+        '<div class="flex items-center justify-between gap-2 mb-15" data-evento-row="' + esc(m) + '">' +
+          '<button data-evento-chip="' + esc(m) + '" class="chip on" style="border-color:var(--pos);background:var(--pos)">' + esc(m) + '</button>' +
+          '<div class="flex items-center gap-15" data-acomp-wrap="' + esc(m) + '">' +
+            '<button data-acomp-minus="' + esc(m) + '" class="opacity-60" style="width:22px">−</button>' +
+            '<span class="text-xs mono" data-acomp-count="' + esc(m) + '" style="width:16px;text-align:center">0</span>' +
+            '<button data-acomp-plus="' + esc(m) + '" class="opacity-60" style="width:22px">+</button>' +
+            '<span class="text-xs opacity-50">acompañantes</span>' +
+          '</div>' +
+        '</div>'
+      );
+    }).join('');
+    return (
+      '<div class="rounded-xl border p-3 mb-4 space-y-25">' +
+        '<input id="evento-nombre" class="field" placeholder="Nombre de la juntada (ej: asado del sábado)">' +
+        '<input id="evento-fecha" type="date" class="field" value="' + new Date().toISOString().slice(0, 10) + '">' +
+        '<div>' +
+          '<p class="text-xs opacity-60 mb-1">¿Quiénes van? (contá acompañantes si van con alguien más)</p>' +
+          '<div id="evento-chips">' + rows + '</div>' +
+        '</div>' +
+        '<div class="flex gap-2 pt-1">' +
+          '<button id="btn-cancel-evento" class="flex-1 py-2 rounded-lg text-sm border">Cancelar</button>' +
+          '<button id="btn-create-evento" class="flex-1 py-2 rounded-lg text-sm font-semibold" style="background:var(--ink);color:#fff">Crear</button>' +
+        '</div>' +
+      '</div>'
+    );
+  }
+
+  function renderEventoDetail(evento) {
+    const gastosEvento = S.gastos.filter(function (g) { return g.eventoId === evento.id; });
+    const balances = computeBalances(gastosEvento, evento.participantes, true);
+    const transacciones = simplifyDebts(balances);
+    const total = gastosEvento.reduce(function (s, g) { return s + g.monto; }, 0);
+
+    const txHtml = transacciones.length ? (
+      '<div class="mb-5">' +
+        '<p class="text-xs font-semibold opacity-50 mb-2" style="text-transform:uppercase;letter-spacing:.03em">Quién le paga a quién</p>' +
+        '<div class="space-y-15">' +
+          transacciones.map(function (t) {
+            return (
+              '<div class="flex items-center gap-2 text-sm px-3 py-2 rounded-lg" style="background:var(--card)">' +
+                '<span class="font-medium">' + esc(t.from) + '</span>' + icon('arrowRight', 13, 'style="opacity:.4"') +
+                '<span class="font-medium">' + esc(t.to) + aliasTag(t.to) + '</span>' +
+                '<span class="mono ml-auto font-semibold" style="color:var(--ink)">' + fmt(t.amt) + '</span>' +
+              '</div>'
+            );
+          }).join('') +
+        '</div>' +
+      '</div>'
+    ) : '';
+
+    const gastoForm = UI.showGastoForm ? renderGastoForm(evento) : '';
+    const gastosList = gastosEvento.length ? gastosEvento.map(function (g) {
+      const mine = g.pagador === S.yo;
+      return (
+        '<div class="flex items-center gap-3 p-3 rounded-xl relative border-dashed">' +
+          '<div class="flex-1">' +
+            '<p class="text-sm font-medium">' + esc(g.desc) + '</p>' +
+            '<p class="text-xs opacity-55">pagó ' + esc(g.pagador) + ' · dividido entre ' + g.participantes.length + '</p>' +
+          '</div>' +
+          '<span class="mono text-sm font-semibold">' + fmt(g.monto) + '</span>' +
+          (mine ? '<button data-remove-gasto="' + g.id + '" class="opacity-30">' + icon('trash', 14) + '</button>' : '') +
+        '</div>'
+      );
+    }).join('') : '<p class="text-sm opacity-45 text-center" style="padding:32px 0">Todavía no hay gastos cargados en esta juntada.</p>';
+
+    const acompHtml = evento.participantes.length ? (
+      '<div class="mb-4">' +
+        '<p class="text-xs font-semibold opacity-50 mb-2" style="text-transform:uppercase;letter-spacing:.03em">Acompañantes</p>' +
+        '<div class="space-y-15">' +
+          evento.participantes.map(function (p) {
+            const cant = (evento.acompanantes && evento.acompanantes[p]) || 0;
+            return (
+              '<div class="flex items-center justify-between text-sm px-3 py-15 rounded-lg" style="background:var(--card)">' +
+                '<span class="font-medium">' + esc(p) + '</span>' +
+                '<div class="flex items-center gap-15">' +
+                  '<button data-acomp-evento-minus="' + esc(p) + '" class="opacity-60" style="width:22px">−</button>' +
+                  '<span class="mono text-xs" style="width:16px;text-align:center">' + cant + '</span>' +
+                  '<button data-acomp-evento-plus="' + esc(p) + '" class="opacity-60" style="width:22px">+</button>' +
+                '</div>' +
+              '</div>'
+            );
+          }).join('') +
+        '</div>' +
+      '</div>'
+    ) : '';
+
+    return (
+      '<div class="pb-4">' +
+        '<button id="btn-back-eventos" class="flex items-center gap-1 text-xs font-medium opacity-60 mb-3">' + icon('chevronLeft', 14) + 'Todas las juntadas</button>' +
+        (esAdminSesion() ? '<button id="btn-remove-evento" class="w-full py-2 rounded-xl text-sm font-semibold mb-3" style="background:var(--neg);color:#fff">BORRAR EVENTO</button>' : '') +
+        '<div class="mb-1">' +
+          '<h2 class="display text-xl font-semibold">' + esc(evento.nombre) + '</h2>' +
+          '<p class="text-xs opacity-55">' + new Date(evento.fecha).toLocaleDateString('es-AR', { day: 'numeric', month: 'long' }) + ' · ' + evento.participantes.map(esc).join(', ') + '</p>' +
+        '</div>' +
+        '<div class="rounded-xl p-4 mb-4 mt-3" style="background:var(--card)">' +
+          '<p class="text-xs opacity-60">total gastado</p>' +
+          '<p class="mono text-2xl font-semibold">' + fmt(total) + '</p>' +
+        '</div>' +
+        txHtml +
+        acompHtml +
+        (!UI.showGastoForm ? '<button id="btn-show-gasto-form" class="w-full flex items-center justify-center gap-2 py-25 rounded-xl text-sm font-semibold mb-5" style="background:var(--ink);color:#fff">' + icon('plus', 16) + 'Cargar gasto de esta juntada</button>' : gastoForm) +
+        '<div class="space-y-2">' + gastosList + '</div>' +
+      '</div>'
+    );
+  }
+
+  function renderGastoForm(evento) {
+    if (!UI.gastoForm) UI.gastoForm = { pagador: evento.participantes.indexOf(S.yo) !== -1 ? S.yo : evento.participantes[0], participantes: evento.participantes.slice() };
+    const gf = UI.gastoForm;
+    const pagadorChips = evento.participantes.map(function (m) {
+      const on = gf.pagador === m;
+      return '<button data-pagador-chip="' + esc(m) + '" class="chip' + (on ? ' on' : '') + '" style="' + (on ? 'border-color:var(--ink);background:var(--ink)' : '') + '">' + esc(m) + '</button>';
+    }).join('');
+    const partChips = evento.participantes.map(function (m) {
+      const on = gf.participantes.indexOf(m) !== -1;
+      return '<button data-part-chip="' + esc(m) + '" class="chip' + (on ? ' on' : '') + '" style="' + (on ? 'border-color:var(--pos);background:var(--pos)' : '') + '">' + esc(m) + '</button>';
+    }).join('');
+    return (
+      '<div class="rounded-xl border p-3 mb-5 space-y-25">' +
+        '<input id="gasto-desc" class="field" placeholder="¿Qué se pagó? (ej: carne, hielo, nafta)">' +
+        '<input id="gasto-monto" type="number" class="field mono" placeholder="Monto total">' +
+        '<div><p class="text-xs opacity-60 mb-1">¿Quién pagó?</p><div id="pagador-chips" class="flex flex-wrap gap-15">' + pagadorChips + '</div></div>' +
+        '<div><p class="text-xs opacity-60 mb-1">¿Entre quiénes se divide?</p><div id="part-chips" class="flex flex-wrap gap-15">' + partChips + '</div></div>' +
+        '<div class="flex gap-2 pt-1">' +
+          '<button id="btn-cancel-gasto" class="flex-1 py-2 rounded-lg text-sm border">Cancelar</button>' +
+          '<button id="btn-save-gasto" class="flex-1 py-2 rounded-lg text-sm font-semibold" style="background:var(--ink);color:#fff">Guardar</button>' +
+        '</div>' +
+      '</div>'
+    );
+  }
+
+  function bindGastos() {
+    const backBtn = document.getElementById('btn-back-eventos');
+    if (backBtn) backBtn.addEventListener('click', function () { UI.gastoEventoId = null; UI.showGastoForm = false; UI.gastoForm = null; render(); });
+
+    const showCreate = document.getElementById('btn-show-create-evento');
+    if (showCreate) showCreate.addEventListener('click', function () { UI.showCreateEvento = true; render(); });
+
+    const cancelEvento = document.getElementById('btn-cancel-evento');
+    if (cancelEvento) cancelEvento.addEventListener('click', function () { UI.showCreateEvento = false; render(); });
+
+    const chipsWrap = document.getElementById('evento-chips');
+    let eventoParticipantes = S.members.slice();
+    let eventoAcompanantes = {};
+    if (chipsWrap) {
+      chipsWrap.querySelectorAll('[data-evento-chip]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          const name = btn.getAttribute('data-evento-chip');
+          const idx = eventoParticipantes.indexOf(name);
+          const wrap = chipsWrap.querySelector('[data-acomp-wrap="' + CSS.escape(name) + '"]');
+          if (idx !== -1) {
+            eventoParticipantes.splice(idx, 1); btn.classList.remove('on');
+            btn.style.background = 'transparent'; btn.style.borderColor = 'rgba(0,0,0,.2)'; btn.style.color = 'var(--ink)';
+            if (wrap) wrap.style.visibility = 'hidden';
+          } else {
+            eventoParticipantes.push(name); btn.classList.add('on');
+            btn.style.background = 'var(--pos)'; btn.style.borderColor = 'var(--pos)'; btn.style.color = '#fff';
+            if (wrap) wrap.style.visibility = 'visible';
+          }
+        });
+      });
+      chipsWrap.querySelectorAll('[data-acomp-plus]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          const name = btn.getAttribute('data-acomp-plus');
+          eventoAcompanantes[name] = (eventoAcompanantes[name] || 0) + 1;
+          chipsWrap.querySelector('[data-acomp-count="' + CSS.escape(name) + '"]').textContent = eventoAcompanantes[name];
+        });
+      });
+      chipsWrap.querySelectorAll('[data-acomp-minus]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          const name = btn.getAttribute('data-acomp-minus');
+          eventoAcompanantes[name] = Math.max(0, (eventoAcompanantes[name] || 0) - 1);
+          chipsWrap.querySelector('[data-acomp-count="' + CSS.escape(name) + '"]').textContent = eventoAcompanantes[name];
+        });
+      });
+    }
+    const createBtn = document.getElementById('btn-create-evento');
+    if (createBtn) createBtn.addEventListener('click', function () {
+      const nombre = document.getElementById('evento-nombre').value.trim();
+      const fecha = document.getElementById('evento-fecha').value;
+      if (!nombre || !eventoParticipantes.length) return;
+      UI.showCreateEvento = false;
+      const acompanantes = {};
+      eventoParticipantes.forEach(function (p) { if (eventoAcompanantes[p]) acompanantes[p] = eventoAcompanantes[p]; });
+      addEvento({ nombre: nombre, fecha: fecha, participantes: eventoParticipantes, acompanantes: acompanantes });
+    });
+
+    root.querySelectorAll('[data-open-evento]').forEach(function (btn) {
+      btn.addEventListener('click', function () { UI.gastoEventoId = Number(btn.getAttribute('data-open-evento')); UI.showGastoForm = false; UI.gastoForm = null; render(); });
+    });
+
+    const removeEventoBtn = document.getElementById('btn-remove-evento');
+    if (removeEventoBtn) removeEventoBtn.addEventListener('click', function () {
+      const id = UI.gastoEventoId;
+      UI.gastoEventoId = null;
+      removeEvento(id);
+    });
+
+    root.querySelectorAll('[data-acomp-evento-plus]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        const p = btn.getAttribute('data-acomp-evento-plus');
+        const evento = S.eventos.find(function (e) { return e.id === UI.gastoEventoId; });
+        const actual = (evento && evento.acompanantes && evento.acompanantes[p]) || 0;
+        setAcompanantes(UI.gastoEventoId, p, actual + 1);
+      });
+    });
+    root.querySelectorAll('[data-acomp-evento-minus]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        const p = btn.getAttribute('data-acomp-evento-minus');
+        const evento = S.eventos.find(function (e) { return e.id === UI.gastoEventoId; });
+        const actual = (evento && evento.acompanantes && evento.acompanantes[p]) || 0;
+        setAcompanantes(UI.gastoEventoId, p, Math.max(0, actual - 1));
+      });
+    });
+
+    const showGastoForm = document.getElementById('btn-show-gasto-form');
+    if (showGastoForm) showGastoForm.addEventListener('click', function () { UI.showGastoForm = true; UI.gastoForm = null; render(); });
+
+    const cancelGasto = document.getElementById('btn-cancel-gasto');
+    if (cancelGasto) cancelGasto.addEventListener('click', function () { UI.showGastoForm = false; UI.gastoForm = null; render(); });
+
+    root.querySelectorAll('[data-pagador-chip]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        UI.gastoForm.pagador = btn.getAttribute('data-pagador-chip');
+        document.querySelectorAll('#pagador-chips [data-pagador-chip]').forEach(function (b) {
+          const on = b.getAttribute('data-pagador-chip') === UI.gastoForm.pagador;
+          b.classList.toggle('on', on);
+          b.style.background = on ? 'var(--ink)' : 'transparent';
+          b.style.borderColor = on ? 'var(--ink)' : 'rgba(0,0,0,.2)';
+          b.style.color = on ? '#fff' : 'var(--ink)';
+        });
+      });
+    });
+    root.querySelectorAll('[data-part-chip]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        const name = btn.getAttribute('data-part-chip');
+        const arr = UI.gastoForm.participantes;
+        const idx = arr.indexOf(name);
+        if (idx !== -1) { arr.splice(idx, 1); btn.classList.remove('on'); btn.style.background = 'transparent'; btn.style.borderColor = 'rgba(0,0,0,.2)'; btn.style.color = 'var(--ink)'; }
+        else { arr.push(name); btn.classList.add('on'); btn.style.background = 'var(--pos)'; btn.style.borderColor = 'var(--pos)'; btn.style.color = '#fff'; }
+      });
+    });
+    const saveGasto = document.getElementById('btn-save-gasto');
+    if (saveGasto) saveGasto.addEventListener('click', function () {
+      const desc = document.getElementById('gasto-desc').value.trim();
+      const monto = parseFloat(document.getElementById('gasto-monto').value);
+      const gf = UI.gastoForm;
+      if (!desc || !monto || !gf.pagador || !gf.participantes.length) return;
+      const eventoId = UI.gastoEventoId;
+      UI.showGastoForm = false;
+      UI.gastoForm = null;
+      addGasto({ desc: desc, monto: monto, pagador: gf.pagador, participantes: gf.participantes, eventoId: eventoId });
+    });
+
+    root.querySelectorAll('[data-remove-gasto]').forEach(function (btn) {
+      btn.addEventListener('click', function () { removeGasto(Number(btn.getAttribute('data-remove-gasto'))); });
+    });
+  }
+
+  /* ---------- cuotas ---------- */
+  function renderCuotas() {
+    if (!esAdminSesion()) return renderCuotaJugadorPropio();
+
+    const subTabs = [
+      { id: 'estado', label: 'Estado' },
+      { id: 'gastosClub', label: 'Gastos del club' },
+      { id: 'ingresosClub', label: 'Ingresos extra' }
+    ];
+    const subNav = subTabs.map(function (t) {
+      const active = UI.cuotaSubTab === t.id;
+      return '<button data-cuota-subtab="' + t.id + '" class="flex-1 text-xs font-semibold py-2 rounded-lg" style="' + (active ? 'background:var(--ink);color:#fff' : 'background:var(--card);color:var(--ink)') + '">' + t.label + '</button>';
+    }).join('');
+
+    const saldoDisplay = UI.editingSaldoBanco
+      ? '<div class="flex items-center gap-2 mt-1"><input id="saldo-draft" type="number" class="mono" style="width:150px;padding:4px 8px;border-radius:8px;border:1px solid rgba(255,255,255,.3);background:transparent;color:#fff" value="' + S.saldoBanco + '"><button id="btn-save-saldo" class="text-xs font-semibold" style="background:var(--celeste);color:#fff;padding:4px 8px;border-radius:8px">Ok</button></div>'
+      : '<p class="mono text-2xl font-semibold cursor-pointer" id="saldo-banco-display">' + fmt(S.saldoBanco) + '</p>';
+
+    const saldoTicket = (
+      '<div class="rounded-xl p-4 mb-4" style="background:var(--ink);color:#fff">' +
+        '<div class="flex items-center justify-between">' +
+          '<div><p class="text-xs opacity-70 mb-1">saldo actual banco</p>' + saldoDisplay + '</div>' +
+          (!UI.editingSaldoBanco ? '<button id="btn-edit-saldo" class="opacity-60">' + icon('edit', 15) + '</button>' : '') +
+        '</div>' +
+      '</div>'
+    );
+
+    let subContent = '';
+    if (UI.cuotaSubTab === 'estado') subContent = renderCuotaEstado();
+    else if (UI.cuotaSubTab === 'gastosClub') subContent = renderCuotaGastosClub();
+    else subContent = renderCuotaIngresosClub();
+
+    return (
+      '<div class="pb-4">' +
+        saldoTicket +
+        '<div class="flex gap-2 mb-4">' + subNav + '</div>' +
+        subContent +
+      '</div>'
+    );
+  }
+
+  function renderCuotaJugadorPropio() {
+    const tipos = S.cuotaTipos[S.month] || { entrenamiento: 0, fullPatriota: 0, soloTBL: 0 };
+    const elecciones = S.cuotaElecciones[S.month] || {};
+    const pagosMes = S.cuotaPagos[S.month] || {};
+    const extraMes = S.cuotaExtra[S.month] || {};
+    const m = S.yo;
+    const tipo = elecciones[m];
+    const nota = extraMes[m] && extraMes[m].nota;
+    const ov = extraMes[m] && extraMes[m].montoCustom;
+    const tieneOverride = ov !== null && ov !== undefined && ov !== '';
+    const monto = tieneOverride ? Number(ov) : montoPorTipo(tipos, tipo);
+    const paid = !!pagosMes[m];
+    const tieneAlgo = tieneOverride || !!tipo;
+
+    return (
+      '<div class="pb-4">' +
+        '<div class="flex items-center justify-between mb-4">' +
+          '<button id="btn-month-prev" class="opacity-60" style="padding:6px">' + icon('chevronLeft', 18) + '</button>' +
+          '<span class="text-sm font-semibold capitalize">' + monthLabel(S.month) + '</span>' +
+          '<button id="btn-month-next" class="opacity-60" style="padding:6px">' + icon('chevronRight', 18) + '</button>' +
+        '</div>' +
+        '<div class="rounded-xl p-5" style="background:var(--card)">' +
+          (tieneAlgo ? (
+            '<p class="text-xs opacity-60 mb-1">tu plan este mes</p>' +
+            '<p class="text-lg font-semibold mb-2">' + (tipo ? planLabel(tipo) : 'Sin plan asignado') + '</p>' +
+            '<p class="mono text-3xl font-semibold mb-3">' + fmt(monto) + '</p>' +
+            '<span class="text-xs font-semibold px-3 py-1 rounded-full" style="background:' + (paid ? 'var(--pos)' : 'var(--neg)') + ';color:#fff">' + (paid ? 'pagado' : 'pendiente') + '</span>' +
+            (nota ? '<p class="text-sm font-medium mt-3" style="color:var(--pos)">' + esc(nota) + '</p>' : '')
+          ) : '<p class="text-sm opacity-55">Todavía no tenés un plan de cuota asignado para este mes. Hablalo con el Admin.</p>') +
+        '</div>' +
+      '</div>'
+    );
+  }
+
+  function bindCuotaJugadorPropio() {
+    document.getElementById('btn-month-prev').addEventListener('click', function () { shiftMonth(-1); });
+    document.getElementById('btn-month-next').addEventListener('click', function () { shiftMonth(1); });
+  }
+
+  function renderCuotaEstado() {
+    const tipos = S.cuotaTipos[S.month] || { entrenamiento: 0, fullPatriota: 0, soloTBL: 0 };
+    const elecciones = S.cuotaElecciones[S.month] || {};
+    const pagosMes = S.cuotaPagos[S.month] || {};
+    const extraMes = S.cuotaExtra[S.month] || {};
+    function tieneOverride(m) {
+      const ov = extraMes[m] && extraMes[m].montoCustom;
+      return ov !== null && ov !== undefined && ov !== '';
+    }
+    function montoDe(m) {
+      if (tieneOverride(m)) return Number(extraMes[m].montoCustom);
+      return montoPorTipo(tipos, elecciones[m]);
+    }
+    function tieneMontoDefinido(m) { return tieneOverride(m) || !!elecciones[m]; }
+    const total = S.members.reduce(function (s, m) { return s + (tieneMontoDefinido(m) ? montoDe(m) : 0); }, 0);
+    const recaudado = S.members.reduce(function (s, m) { return s + (pagosMes[m] && tieneMontoDefinido(m) ? montoDe(m) : 0); }, 0);
+
+    const membersHtml = S.members.length ? S.members.map(function (m) {
+      const paid = !!pagosMes[m];
+      const tipo = elecciones[m];
+      const nota = extraMes[m] && extraMes[m].nota;
+      const pagoBadge = '<button data-toggle-pago="' + esc(m) + '" class="text-xs font-semibold px-2 rounded-full" style="padding:2px 8px;background:' + (paid ? 'var(--pos)' : 'var(--neg)') + ';color:#fff">' + (paid ? 'pagó' : 'debe') + '</button>';
+      const planSection = '<div class="flex flex-wrap gap-15">' + PLAN_TIPOS.map(function (p) {
+        const on = tipo === p.key;
+        const val = montoPorTipo(tipos, p.key);
+        return '<button data-elegir="' + p.key + '" data-elegir-member="' + esc(m) + '" class="text-xs font-medium py-15 rounded-lg border" style="flex:1 1 30%;' + (on ? 'border-color:var(--celeste);background:var(--celeste);color:#fff' : 'color:var(--ink)') + '">' + p.label + ' · ' + fmt(val) + '</button>';
+      }).join('') + '</div>';
+      const overrideTag = tieneOverride(m) ? '<p class="text-xs mt-1" style="color:var(--celeste)">monto personalizado: ' + fmt(extraMes[m].montoCustom) + '</p>' : '';
+      const notaTag = nota ? '<p class="text-xs font-medium mt-1" style="color:var(--pos)">' + esc(nota) + '</p>' : '';
+      const editBtn = '<button data-edit-extra="' + esc(m) + '" class="opacity-50" title="monto personalizado / nota">' + icon('edit', 12) + '</button>';
+      const extraForm = (UI.cuotaExtraForm && UI.cuotaExtraForm.member === m) ? renderCuotaExtraForm(m, extraMes[m]) : '';
+      return (
+        '<div class="px-3 py-25 rounded-xl border" data-member-row="' + esc(m) + '" style="border-color:' + (paid ? 'var(--pos)' : 'rgba(0,0,0,.15)') + ';background:' + (paid ? 'rgba(62,142,89,.06)' : 'transparent') + '">' +
+          '<div class="flex items-center justify-between mb-15">' +
+            '<span class="text-sm font-medium">' + esc(m) + '</span>' +
+            '<span class="flex items-center gap-15">' + editBtn + pagoBadge + '</span>' +
+          '</div>' +
+          planSection + overrideTag + notaTag + extraForm +
+        '</div>'
+      );
+    }).join('<div style="height:6px"></div>') : '<p class="text-sm opacity-45 text-center" style="padding:32px 0">Sumá jugadores desde el panel de abajo para armar la lista de la cuota.</p>';
+
+    return (
+      '<div>' +
+        '<div class="flex items-center justify-between mb-4">' +
+          '<button id="btn-month-prev" class="opacity-60" style="padding:6px">' + icon('chevronLeft', 18) + '</button>' +
+          '<span class="text-sm font-semibold capitalize">' + monthLabel(S.month) + '</span>' +
+          '<button id="btn-month-next" class="opacity-60" style="padding:6px">' + icon('chevronRight', 18) + '</button>' +
+        '</div>' +
+        '<div class="rounded-xl p-4 mb-3" style="background:var(--card)">' +
+          '<p class="text-xs opacity-60 mb-2">planes de este mes</p>' +
+          renderTipoRow('Solo Entrenamiento', 'entrenamiento', tipos.entrenamiento) +
+          '<div style="height:8px"></div>' +
+          renderTipoRow('Full Patriotas', 'fullPatriota', tipos.fullPatriota) +
+          '<div style="height:8px"></div>' +
+          renderTipoRow('Solo TBL', 'soloTBL', tipos.soloTBL) +
+        '</div>' +
+        '<div class="rounded-xl p-4 mb-5" style="background:var(--card)">' +
+          '<div class="flex items-center justify-between">' +
+            '<div><p class="text-xs opacity-60">recaudado del mes</p><p class="mono text-xl font-semibold">' + fmt(recaudado) + '</p></div>' +
+            '<div class="text-right"><p class="text-xs opacity-60">esperado del mes</p><p class="mono text-xl font-semibold">' + fmt(total) + '</p></div>' +
+          '</div>' +
+        '</div>' +
+        membersHtml +
+      '</div>'
+    );
+  }
+
+  function renderCuotaGastosClub() {
+    const form = (
+      '<div class="rounded-xl border p-3 mb-4 space-y-25">' +
+        '<input id="gc-desc" class="field" placeholder="¿En qué se gastó? (ej: cancha, pelotas, árbitro)">' +
+        '<div class="flex gap-2">' +
+          '<input id="gc-monto" type="number" class="field mono" placeholder="Monto" style="flex:1">' +
+          '<input id="gc-fecha" type="date" class="field" style="flex:1" value="' + new Date().toISOString().slice(0, 10) + '">' +
+        '</div>' +
+        '<button id="btn-add-gasto-club" class="w-full py-2 rounded-lg text-sm font-semibold" style="background:var(--ink);color:#fff">Registrar gasto</button>' +
+      '</div>'
+    );
+
+    const list = S.gastosClub.length ? S.gastosClub.map(function (g) {
+      return (
+        '<div class="flex items-center gap-3 p-3 rounded-xl relative border-dashed">' +
+          '<div class="flex-1">' +
+            '<p class="text-sm font-medium">' + esc(g.desc) + '</p>' +
+            '<p class="text-xs opacity-55">' + new Date(g.fecha).toLocaleDateString('es-AR', { day: 'numeric', month: 'short' }) + ' · cargó ' + esc(g.cargadoPor) + '</p>' +
+          '</div>' +
+          '<span class="mono text-sm font-semibold">' + fmt(g.monto) + '</span>' +
+          '<button data-remove-gasto-club="' + g.id + '" class="opacity-30">' + icon('trash', 14) + '</button>' +
+        '</div>'
+      );
+    }).join('') : '<p class="text-sm opacity-45 text-center" style="padding:32px 0">Todavía no se cargó ningún gasto del club.</p>';
+
+    return '<div>' + form + '<div class="space-y-2">' + list + '</div></div>';
+  }
+
+  function renderCuotaIngresosClub() {
+    const form = (
+      '<div class="rounded-xl border p-3 mb-4 space-y-25">' +
+        '<input id="ic-desc" class="field" placeholder="¿De qué es el ingreso? (ej: invitado cancha del jueves)">' +
+        '<div class="flex gap-2">' +
+          '<input id="ic-monto" type="number" class="field mono" placeholder="Monto" style="flex:1">' +
+          '<input id="ic-fecha" type="date" class="field" style="flex:1" value="' + new Date().toISOString().slice(0, 10) + '">' +
+        '</div>' +
+        '<button id="btn-add-ingreso-club" class="w-full py-2 rounded-lg text-sm font-semibold" style="background:var(--ink);color:#fff">Registrar ingreso</button>' +
+      '</div>'
+    );
+
+    const list = S.ingresosClub.length ? S.ingresosClub.map(function (g) {
+      return (
+        '<div class="flex items-center gap-3 p-3 rounded-xl relative border-dashed">' +
+          '<div class="flex-1">' +
+            '<p class="text-sm font-medium">' + esc(g.desc) + '</p>' +
+            '<p class="text-xs opacity-55">' + new Date(g.fecha).toLocaleDateString('es-AR', { day: 'numeric', month: 'short' }) + ' · cargó ' + esc(g.cargadoPor) + '</p>' +
+          '</div>' +
+          '<span class="mono text-sm font-semibold">' + fmt(g.monto) + '</span>' +
+          '<button data-remove-ingreso-club="' + g.id + '" class="opacity-30">' + icon('trash', 14) + '</button>' +
+        '</div>'
+      );
+    }).join('') : '<p class="text-sm opacity-45 text-center" style="padding:32px 0">Todavía no se cargó ningún ingreso extra.</p>';
+
+    return '<div>' + form + '<div class="space-y-2">' + list + '</div></div>';
+  }
+
+  function renderCuotaExtraForm(member, extra) {
+    const montoActual = extra && extra.montoCustom !== null && extra.montoCustom !== undefined ? extra.montoCustom : '';
+    const notaActual = (extra && extra.nota) || '';
+    return (
+      '<div class="rounded-lg border p-3 mt-2 space-y-15" style="background:#fff">' +
+        '<input id="ce-monto" type="number" class="field mono" placeholder="Monto personalizado (vacío = precio del plan)" value="' + esc(montoActual) + '">' +
+        '<input id="ce-nota" class="field" placeholder="Nota (ej: en recuperación, cargo extra)" value="' + esc(notaActual) + '">' +
+        '<div class="flex gap-2">' +
+          '<button data-cancel-extra class="flex-1 py-15 rounded-lg text-xs border">Cancelar</button>' +
+          '<button data-save-extra="' + esc(member) + '" class="flex-1 py-15 rounded-lg text-xs font-semibold" style="background:var(--celeste);color:#fff">Guardar</button>' +
+        '</div>' +
+      '</div>'
+    );
+  }
+
+  function renderTipoRow(label, tipoKey, valor) {
+    const editing = UI.cuotaEditingTipo === tipoKey;
+    return (
+      '<div class="flex items-center justify-between" data-tipo-row="' + tipoKey + '">' +
+        '<span class="text-sm font-medium">' + label + '</span>' +
+        (editing
+          ? '<div class="flex items-center gap-2"><input id="tipo-draft-' + tipoKey + '" type="number" class="mono" style="width:96px;padding:4px 8px;border-radius:8px;border:1px solid rgba(0,0,0,.2)" value="' + valor + '"><button data-save-tipo="' + tipoKey + '" class="text-xs font-semibold" style="background:var(--celeste);color:#fff;padding:4px 8px;border-radius:8px">Ok</button></div>'
+          : '<p data-edit-tipo="' + tipoKey + '" class="mono text-sm font-semibold cursor-pointer">' + fmt(valor) + '</p>'
+        ) +
+      '</div>'
+    );
+  }
+
+  function bindCuotas() {
+    root.querySelectorAll('[data-cuota-subtab]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        UI.cuotaSubTab = btn.getAttribute('data-cuota-subtab');
+        UI.cuotaEditingTipo = null;
+        UI.cuotaExtraForm = null;
+        render();
+      });
+    });
+
+    const editSaldoBtn = document.getElementById('btn-edit-saldo');
+    if (editSaldoBtn) editSaldoBtn.addEventListener('click', function () { UI.editingSaldoBanco = true; render(); });
+    const saveSaldoBtn = document.getElementById('btn-save-saldo');
+    if (saveSaldoBtn) saveSaldoBtn.addEventListener('click', function () {
+      const val = parseFloat(document.getElementById('saldo-draft').value) || 0;
+      UI.editingSaldoBanco = false;
+      saveSaldoBanco(val);
+    });
+
+    if (UI.cuotaSubTab === 'estado') {
+      document.getElementById('btn-month-prev').addEventListener('click', function () { shiftMonth(-1); });
+      document.getElementById('btn-month-next').addEventListener('click', function () { shiftMonth(1); });
+
+      ['entrenamiento', 'fullPatriota', 'soloTBL'].forEach(function (tipoKey) {
+        const editBtn = root.querySelector('[data-edit-tipo="' + tipoKey + '"]');
+        if (editBtn) editBtn.addEventListener('click', function () { UI.cuotaEditingTipo = tipoKey; render(); });
+        const saveBtn = root.querySelector('[data-save-tipo="' + tipoKey + '"]');
+        if (saveBtn) saveBtn.addEventListener('click', function () {
+          const val = parseFloat(document.getElementById('tipo-draft-' + tipoKey).value) || 0;
+          UI.cuotaEditingTipo = null;
+          saveCuotaTipo(S.month, tipoKey, val);
+        });
+      });
+
+      root.querySelectorAll('[data-toggle-pago]').forEach(function (btn) {
+        btn.addEventListener('click', function () { togglePago(S.month, btn.getAttribute('data-toggle-pago')); });
+      });
+      root.querySelectorAll('[data-member-row]').forEach(function (rowEl) {
+        const member = rowEl.getAttribute('data-member-row');
+        rowEl.querySelectorAll('[data-elegir]').forEach(function (btn) {
+          btn.addEventListener('click', function () { elegirCuota(S.month, member, btn.getAttribute('data-elegir')); });
+        });
+      });
+      root.querySelectorAll('[data-edit-extra]').forEach(function (btn) {
+        btn.addEventListener('click', function () { UI.cuotaExtraForm = { member: btn.getAttribute('data-edit-extra') }; render(); });
+      });
+      const cancelExtra = root.querySelector('[data-cancel-extra]');
+      if (cancelExtra) cancelExtra.addEventListener('click', function () { UI.cuotaExtraForm = null; render(); });
+      const saveExtraBtn = root.querySelector('[data-save-extra]');
+      if (saveExtraBtn) saveExtraBtn.addEventListener('click', function () {
+        const member = saveExtraBtn.getAttribute('data-save-extra');
+        const montoStr = document.getElementById('ce-monto').value.trim();
+        const nota = document.getElementById('ce-nota').value.trim();
+        const montoCustom = montoStr === '' ? null : parseFloat(montoStr);
+        saveCuotaExtra(S.month, member, { montoCustom: montoCustom, nota: nota });
+      });
+    } else if (UI.cuotaSubTab === 'gastosClub') {
+      const addBtn = document.getElementById('btn-add-gasto-club');
+      if (addBtn) addBtn.addEventListener('click', function () {
+        const desc = document.getElementById('gc-desc').value.trim();
+        const monto = parseFloat(document.getElementById('gc-monto').value);
+        const fecha = document.getElementById('gc-fecha').value;
+        if (!desc || !monto) return;
+        addGastoClub({ desc: desc, monto: monto, fecha: fecha });
+      });
+      root.querySelectorAll('[data-remove-gasto-club]').forEach(function (btn) {
+        btn.addEventListener('click', function () { removeGastoClub(Number(btn.getAttribute('data-remove-gasto-club'))); });
+      });
+    } else {
+      const addIncBtn = document.getElementById('btn-add-ingreso-club');
+      if (addIncBtn) addIncBtn.addEventListener('click', function () {
+        const desc = document.getElementById('ic-desc').value.trim();
+        const monto = parseFloat(document.getElementById('ic-monto').value);
+        const fecha = document.getElementById('ic-fecha').value;
+        if (!desc || !monto) return;
+        addIngresoClub({ desc: desc, monto: monto, fecha: fecha });
+      });
+      root.querySelectorAll('[data-remove-ingreso-club]').forEach(function (btn) {
+        btn.addEventListener('click', function () { removeIngresoClub(Number(btn.getAttribute('data-remove-ingreso-club'))); });
+      });
+    }
+  }
+  function shiftMonth(delta) {
+    const parts = S.month.split('-').map(Number);
+    const d = new Date(parts[0], parts[1] - 1 + delta, 1);
+    S.month = monthKey(d);
+    render();
+  }
+
+  /* ---------- global binds ---------- */
+  function bindApp() {
+    document.getElementById('btn-cambiar').addEventListener('click', cambiarYo);
+    root.querySelectorAll('[data-tab]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        S.tab = btn.getAttribute('data-tab');
+        UI.gastoEventoId = null; UI.showCreateEvento = false; UI.showGastoForm = false; UI.gastoForm = null; UI.cuotaEditingTipo = null;
+        render();
+      });
+    });
+    const toggleMembers = document.getElementById('btn-toggle-members');
+    toggleMembers.addEventListener('click', function () {
+      UI.membersOpen = !UI.membersOpen;
+      UI.jugadorForm = null;
+      UI.bulkForm = false;
+      render();
+    });
+    if (UI.membersOpen) {
+      const soyAdmin = esAdminSesion();
+      if (soyAdmin) {
+        root.querySelectorAll('[data-remove-member]').forEach(function (btn) {
+          btn.addEventListener('click', function () { removeMember(btn.getAttribute('data-remove-member')).then(render); });
+        });
+        root.querySelectorAll('[data-edit-jugador]').forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            const id = btn.getAttribute('data-edit-jugador');
+            const perfil = S.jugadores[id] || {};
+            UI.jugadorForm = {
+              editing: id,
+              nombre: perfil.nombre || '', apellido: perfil.apellido || '',
+              numero: perfil.numero || '', mail: perfil.mail || '',
+              aliasBanco: perfil.aliasBanco || '', telefono: perfil.telefono || '',
+              dni: perfil.dni || '', fechaNacimiento: perfil.fechaNacimiento || ''
+            };
+            render();
+          });
+        });
+        const newBtn = document.getElementById('btn-new-jugador');
+        if (newBtn) newBtn.addEventListener('click', function () {
+          UI.jugadorForm = { editing: null, nombre: '', apellido: '', numero: '', mail: '', aliasBanco: '', telefono: '', dni: '', fechaNacimiento: '' };
+          render();
+        });
+        const cancelBtn = document.getElementById('btn-cancel-jugador');
+        if (cancelBtn) cancelBtn.addEventListener('click', function () { UI.jugadorForm = null; render(); });
+        const saveBtn = document.getElementById('btn-save-jugador');
+        if (saveBtn) saveBtn.addEventListener('click', async function () {
+          const f = UI.jugadorForm;
+          const numero = document.getElementById('jf-numero').value.trim();
+          const mail = document.getElementById('jf-mail').value.trim();
+          const aliasBanco = document.getElementById('jf-alias').value.trim();
+          const telefono = document.getElementById('jf-telefono').value.trim();
+          const dni = document.getElementById('jf-dni').value.trim();
+          const fechaNacimiento = document.getElementById('jf-fechaNacimiento').value.trim();
+          if (f.editing) {
+            UI.jugadorForm = null;
+            await updateJugador(f.editing, { numero: numero, mail: mail, aliasBanco: aliasBanco, telefono: telefono, dni: dni, fechaNacimiento: fechaNacimiento });
+            render();
+          } else {
+            const nombre = document.getElementById('jf-nombre').value.trim();
+            const apellido = document.getElementById('jf-apellido').value.trim();
+            if (!nombre) return;
+            UI.jugadorForm = null;
+            await addJugador({ nombre: nombre, apellido: apellido, numero: numero, mail: mail, aliasBanco: aliasBanco, telefono: telefono, dni: dni, fechaNacimiento: fechaNacimiento });
+            render();
+          }
+        });
+        const bulkBtn = document.getElementById('btn-bulk-jugadores');
+        if (bulkBtn) bulkBtn.addEventListener('click', function () { UI.bulkForm = true; render(); });
+        const cancelBulkBtn = document.getElementById('btn-cancel-bulk');
+        if (cancelBulkBtn) cancelBulkBtn.addEventListener('click', function () { UI.bulkForm = false; render(); });
+        const saveBulkBtn = document.getElementById('btn-save-bulk');
+        if (saveBulkBtn) saveBulkBtn.addEventListener('click', async function () {
+          const lines = document.getElementById('bulk-textarea').value.split('\n').map(function (l) { return l.trim(); }).filter(Boolean);
+          UI.bulkForm = false;
+          for (const line of lines) {
+            const parts = line.split(' ').filter(Boolean);
+            const nombre = parts[0] || '';
+            const apellido = parts.slice(1).join(' ');
+            await addJugador({ nombre: nombre, apellido: apellido, numero: '', mail: '', aliasBanco: '', telefono: '', dni: '', fechaNacimiento: '' });
+          }
+          render();
+        });
+        const changePinBtn = document.getElementById('btn-change-pin');
+        if (changePinBtn) changePinBtn.addEventListener('click', function () { UI.changingPin = true; render(); });
+        const cancelPinBtn = document.getElementById('btn-cancel-pin');
+        if (cancelPinBtn) cancelPinBtn.addEventListener('click', function () { UI.changingPin = false; render(); });
+        const savePinBtn = document.getElementById('btn-save-pin');
+        if (savePinBtn) savePinBtn.addEventListener('click', function () {
+          const pin = document.getElementById('new-pin').value.trim();
+          if (pin.length !== 4) return;
+          UI.changingPin = false;
+          saveAdminPin(pin);
+        });
+      }
+    }
+    if (S.tab === 'avisos') bindAvisos();
+    else if (S.tab === 'gastos') bindGastos();
+    else if (esAdminSesion()) bindCuotas();
+    else bindCuotaJugadorPropio();
+  }
+
+  loadAll();
+})();
+</script>
+</body>
+</html>
